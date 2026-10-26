@@ -23,3 +23,19 @@ class Device:
             "switching_temperature_coefficient_k",
         ):
             positive(getattr(self, key), allow_zero=True)
+
+
+@dataclass(frozen=True)
+class Thermal:
+    junction_capacity_j_k: float = 0.5
+    case_capacity_j_k: float = 10
+    junction_case_k_w: float = 0.7
+    case_ambient_k_w: float = 3
+
+    def __post_init__(self):
+        for key in self.__dataclass_fields__:
+            positive(getattr(self, key))
+
+    @property
+    def total_resistance(self):
+        return self.junction_case_k_w + self.case_ambient_k_w
