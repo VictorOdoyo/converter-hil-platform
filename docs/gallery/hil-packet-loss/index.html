@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>hil-packet-loss | Converter HIL Platform</title>
+<style>body{font:16px system-ui;max-width:1300px;margin:3rem auto;padding:0 1rem;color:#172033}
+img{width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{padding:.55rem;border-bottom:1px solid #dce1ea;text-align:left}
+code{overflow-wrap:anywhere}a{color:#164ac4}</style>
+<h1>hil-packet-loss</h1><p>Reproducible switched converters and virtual HIL. Units and field components are printed on the
+scientific axes. peak d-q quantities use exp(+i omega t); terminal currents point into the protected line.</p>
+<p><a href="fields.npz">Sealed numeric archive</a> | <a href="summary.csv">Summary CSV</a> |
+<a href="parameters.json">Physical parameters</a> | <a href="configuration.json">Run request</a> |
+<a href="provenance.json">Source and environment</a></p>
+<img src="figure.png" alt="Scientific curves and electromagnetic field maps for hil-packet-loss">
+<table><tr><th>accepted_packets</th><td>533</td></tr><tr><th>dropped_packets</th><td>266</td></tr><tr><th>final_output_v</th><td>24.014967624943434</td></tr><tr><th>limited_cycles</th><td>0</td></tr><tr><th>max_energy_residual_j</th><td>1.1171619185290638e-14</td></tr><tr><th>maximum_recorded_current_a</th><td>9.260554952305988</td></tr><tr><th>minimum_recorded_current_a</th><td>0.0</td></tr><tr><th>peak_inductor_a</th><td>9.260554952305988</td></tr><tr><th>rejected_packets</th><td>0</td></tr><tr><th>terminal_tracking_rms_v</th><td>0.0310460726971419</td></tr><tr><th>watchdog_cycles</th><td>1</td></tr></table><h2>Data tables</h2><ul></ul>
+<h2>Assumptions and interpretation</h2><ul><li>Ideal switches; exact held-mode circuit flows and integrated quadratic power.</li><li>Cascade PI consumes quantized delayed measurements; only plant parameters see physical faults.</li><li>Virtual time transport and modeled deadlines do not demonstrate hardware or host real-time performance.</li><li>Comparator limits positive on-pulse current; synchronous negative current is physically permitted. Current extrema use event samples.</li><li>Resolution scale preserves the physical sampling/PWM clock; exact interval physics has no integration step size.</li></ul>
+<p>These are simulations, not hardware measurements. Network-model, measurement, timing and statistical
+uncertainty require distinct convergence checks. Singular or unilluminated data use explicit masks.</p>
+<p>Source revision: <code>b037b9bac4fb91b47282a5f1fd30d5a00f340256</code>.
+Dirty checkout: <code>False</code>.
+Configuration SHA-256: <code>76d68fb7aba458bae77101a691a1a565aefe0a605d469a1963021abe9faf74be</code>.</p>
+<p>Replay preserves original source and parameter provenance. SHA-256 manifests detect changed bytes;
+they are unsigned integrity records, not certificates of physical validity.</p></html>
