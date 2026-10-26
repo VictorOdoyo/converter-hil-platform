@@ -64,3 +64,14 @@ def test_modeled_deadlines():
     r = m.deadlines([0, 100, 200], [150, 100, 10], 100)
     assert np.array_equal(r["start_ns"], [0, 150, 250])
     assert np.array_equal(r["missed"], [True, True, False])
+
+
+def test_packet_replay_reproduces_corrupt_transport():
+    from hilconv.bench import Config, simulate
+
+    r = simulate(Config(duration_s=0.002, corrupt_every=3))
+    ticks = np.rint(r["time_s"][:-1] * 1e9).astype(np.int64)
+    replay = m.replay(ticks, r["received_packet_bytes"], r["packet_log"][:, 1])
+    assert np.array_equal(replay["duty"], r["duty"][:-1])
+    assert replay["accepted"] == r["accepted_packets"]
+    assert replay["rejected"] == r["rejected_packets"]

@@ -165,3 +165,48 @@ def deadlines(release_ns, execution_ns, period_ns):
         "lateness_ns": np.maximum(0, finish - release - period),
         "missed": finish > release + period,
     }
+
+
+def replay(time_ns, packet_bytes, received_ns, maximum_age_ns=200000, watchdog_ns=300000):
+    times = np.asarray(time_ns)
+    packets = np.asarray(packet_bytes)
+    received = np.asarray(received_ns)
+    if (
+        times.dtype.kind not in "iu"
+        or times.ndim != 1
+        or len(times) < 1
+        or np.any(np.diff(times) <= 0)
+        or np.any(times < 0)
+    ):
+        raise ValueError("strictly ordered nonnegative integer replay ticks required")
+    if (
+        packets.dtype != np.uint8
+        or packets.ndim != 2
+        or packets.shape[1] != 32
+        or received.dtype.kind not in "iu"
+        or received.shape != (len(packets),)
+        or np.any(np.diff(received) < 0)
+    ):
+        raise ValueError("ordered receive times and uint8 command frames required")
+    if len(received) and (
+        received[0] < times[0] or received[-1] > times[-1] or not np.all(np.isin(received, times))
+    ):
+        raise ValueError("receive timestamps must match recorded polling ticks")
+    latch = CommandLatch(maximum_age_ns, watchdog_ns)
+    index = 0
+    duties = []
+    stale = []
+    for tick in times:
+        now = int(tick)
+        while index < len(packets) and received[index] <= now:
+            latch.receive(packets[index].tobytes(), now)
+            index += 1
+        output = latch.output(now)
+        duties.append(output["duty"])
+        stale.append(output["watchdog"])
+    return {
+        "duty": np.array(duties),
+        "watchdog": np.array(stale),
+        "accepted": latch.accepted,
+        "rejected": latch.rejected,
+    }
