@@ -273,3 +273,12 @@ def cooling_fit(time_s, temperature_c, ambient_c=25):
     if slope >= 0:
         raise ValueError("decaying thermal transient required")
     return {"time_constant_s": float(-1 / slope), "initial_excess_c": float(np.exp(intercept))}
+
+
+def junction_from_case(case_c, power_w, model=None):
+    p = Thermal() if model is None else model
+    case = finite(case_c, real=True)
+    power = positive(power_w, allow_zero=True)
+    if np.any(case <= -273.15):
+        raise ValueError("physical measured case temperature required")
+    return case + power * p.junction_case_k_w

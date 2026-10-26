@@ -75,3 +75,8 @@ def test_cooling_time_constant():
     t = np.linspace(0, 50, 101)
     r = m.cooling_fit(t, 25 + 40 * np.exp(-t / 12))
     assert r["time_constant_s"] == pytest.approx(12)
+
+
+def test_steady_case_inference():
+    temperature = m.steady_temperatures(12)
+    assert m.junction_from_case(temperature[1], 12) == pytest.approx(temperature[0])
