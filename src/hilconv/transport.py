@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+import numpy as np
+
 from .core import finite, integer
 
 
@@ -142,3 +144,24 @@ class VirtualBus:
             arrival, _, packet = heapq.heappop(self.queue)
             packets.append((arrival, packet))
         return packets
+
+
+def deadlines(release_ns, execution_ns, period_ns):
+    release = finite(release_ns, real=True, ndim=1)
+    work = finite(execution_ns, real=True, ndim=1)
+    period = integer(period_ns)
+    if release.shape != work.shape or not len(release) or np.any(np.diff(release) <= 0) or np.any(work < 0):
+        raise ValueError("ordered releases and aligned nonnegative execution budgets required")
+    start = np.zeros(len(release))
+    finish = np.zeros(len(release))
+    previous = release[0]
+    for k in range(len(release)):
+        start[k] = max(release[k], previous)
+        finish[k] = start[k] + work[k]
+        previous = finish[k]
+    return {
+        "start_ns": start,
+        "finish_ns": finish,
+        "lateness_ns": np.maximum(0, finish - release - period),
+        "missed": finish > release + period,
+    }

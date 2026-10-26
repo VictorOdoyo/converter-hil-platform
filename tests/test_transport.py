@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from hilconv import transport as m
@@ -57,3 +58,9 @@ def test_virtual_bus_causality_and_loss():
     assert not b.poll(49)
     assert b.poll(50) == [(50, b"data")]
     assert b.dropped == 1
+
+
+def test_modeled_deadlines():
+    r = m.deadlines([0, 100, 200], [150, 100, 10], 100)
+    assert np.array_equal(r["start_ns"], [0, 150, 250])
+    assert np.array_equal(r["missed"], [True, True, False])
