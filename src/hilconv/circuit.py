@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import lru_cache
 
 import numpy as np
 
@@ -109,3 +110,32 @@ def power_forms(sa, sb, model=None):
             p.inductor_ohm * form(current, current) + p.capacitor_esr_ohm * form(cap, cap),
         ]
     )
+
+
+@lru_cache(maxsize=4096)
+def operators(generator_values, power_values, dt_s):
+    from scipy.linalg import expm
+
+    dt = positive(dt_s, allow_zero=True)
+    a = np.asarray(generator_values).reshape(3, 3)
+    q = np.asarray(power_values).reshape(3, 9)
+    moments = np.kron(a, np.eye(3)) + np.kron(np.eye(3), a)
+    augmented = np.block([[moments, np.zeros((9, 3))], [q, np.zeros((3, 3))]])
+    transition = expm(a * dt)
+    energy_transition = expm(augmented * dt)[9:, :9]
+    return transition, energy_transition
+
+
+def advance(value, dt_s, sa, sb, model=None):
+    a = generator(sa, sb, model)
+    q = power_forms(sa, sb, model)
+    z = np.r_[state(value), 1.0]
+    transition, integrals = operators(tuple(a.ravel()), tuple(q.ravel()), dt_s)
+    y = transition @ z
+    energies = integrals @ np.outer(z, z).ravel()
+    return {
+        "state": y[:2],
+        "input_j": float(energies[0]),
+        "output_j": float(energies[1]),
+        "loss_j": float(energies[2]),
+    }

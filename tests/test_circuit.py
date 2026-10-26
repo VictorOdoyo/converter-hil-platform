@@ -48,3 +48,11 @@ def test_power_quadratics():
     z = np.array([-3, 18, 1.0])
     actual = np.einsum("i,kij,j->k", z, m.power_forms(1, 1, p), z)
     assert np.allclose(actual, list(m.power(z[:2], 1, 1, p).values()))
+
+
+def test_exact_interval_energy():
+    p = m.Circuit(load_source_v=12)
+    x = np.array([4.0, 24.0])
+    result = m.advance(x, 0.0001, 1, 1, p)
+    change = m.energy(result["state"], p) - m.energy(x, p)
+    assert change == pytest.approx(result["input_j"] - result["output_j"] - result["loss_j"], abs=2e-13)
