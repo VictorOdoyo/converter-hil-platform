@@ -77,3 +77,12 @@ def integrate_cycle(
             totals[key] += r.get(key, 0.0)
         trace.append((hi, float(x[0]), float(x[1])))
     return {"state": x, **totals, "limited": limited, "trace": np.array(trace)}
+
+
+def trace_output(trace, schedule, output_coefficient=1):
+    values = finite(trace, real=True, ndim=2)
+    if values.shape[1] != 3:
+        raise ValueError("time current capacitor-voltage trace required")
+    return np.array(
+        [circuit.ports(row[1:], 0, output_coefficient, schedule.at(row[0]))["output_v"] for row in values]
+    )
