@@ -90,3 +90,12 @@ def test_bus_send_calls_time_guard():
     b.poll(100)
     with pytest.raises(ValueError):
         b.send(b"frame", 99)
+
+
+def test_frame_freezes_payload():
+    values = [0.5]
+    frame = m.Frame(2, 0, 0, values)
+    values[0] = float("nan")
+    assert m.decode(m.encode(frame)).values == (0.5,)
+    with pytest.raises(ValueError):
+        m.Frame(True, 0, 0, (1,))
