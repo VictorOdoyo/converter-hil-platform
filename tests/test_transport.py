@@ -83,3 +83,10 @@ def test_virtual_past_rejected():
     with pytest.raises(ValueError):
         m.validate_send_time(b, 99)
     assert m.validate_send_time(b, 100) == 100
+
+
+def test_bus_send_calls_time_guard():
+    b = m.VirtualBus(50)
+    b.poll(100)
+    with pytest.raises(ValueError):
+        b.send(b"frame", 99)

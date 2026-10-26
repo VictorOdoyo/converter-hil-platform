@@ -116,7 +116,7 @@ class VirtualBus:
     def send(self, packet, now_ns):
         import heapq
 
-        integer(now_ns, 0)
+        validate_send_time(self, now_ns)
         if not isinstance(packet, bytes):
             raise ValueError("encoded byte packet required")
         self.sent += 1
