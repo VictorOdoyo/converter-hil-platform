@@ -22,3 +22,8 @@ def test_observer():
 def test_deadtime():
     r = m.deadtime()
     assert r["summary"]["peak_error_v"] == pytest.approx(1.92)
+
+
+def test_deadline():
+    r = m.deadline()
+    assert r["summary"]["missed_deadlines"] > 6

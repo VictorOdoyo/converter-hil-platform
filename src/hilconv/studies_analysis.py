@@ -187,3 +187,38 @@ def deadtime(scale=1, seed=42):
             "Average polarity approximation with fixed current sign over commutation, not a switching transient or diode reverse-recovery solve."
         ],
     )
+
+
+def deadline(scale=1, seed=42):
+    from .transport import deadlines
+
+    release = np.arange(100, dtype=np.int64) * 50000
+    work = np.full(100, 25000, dtype=np.int64)
+    work[30:36] = 90000
+    r = deadlines(release, work, 50000)
+    return make(
+        "hil-deadline-overrun",
+        {"period_ns": 50000, "ordinary_execution_ns": 25000, "overrun_execution_ns": 90000},
+        {
+            "missed_deadlines": int(sum(r["missed"])),
+            "maximum_lateness_us": float(max(r["lateness_ns"]) / 1000),
+        },
+        {"release_ms": release / 1e6, "execution_us": work / 1000, "lateness_us": r["lateness_ns"] / 1000},
+        [
+            curve(
+                "Declared execution budget",
+                "release_ms",
+                [("execution_us", "Execution")],
+                "Release time (ms)",
+                "Modeled work (us)",
+            ),
+            curve(
+                "Backlog beyond deadline",
+                "release_ms",
+                [("lateness_us", "Lateness")],
+                "Release time (ms)",
+                "Modeled lateness (us)",
+            ),
+        ],
+        assumptions=["All timing is virtual. This is not a host benchmark or hard-real-time certification."],
+    )
