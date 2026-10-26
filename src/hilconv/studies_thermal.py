@@ -218,3 +218,32 @@ def step(scale=1, seed=42):
             "Case-to-junction steady inference is deliberately shown to be biased during initial heating."
         ],
     )
+
+
+def cooling(scale=1, seed=42):
+    from .core import stream
+    from .electrothermal import cooling_fit
+
+    t = np.linspace(0, 40, 101 * scale)
+    truth = 25 + 40 * np.exp(-t / 12)
+    measured = truth + stream(seed, "cooling").normal(0, 0.02, len(t))
+    fit = cooling_fit(t, measured)
+    reconstructed = 25 + fit["initial_excess_c"] * np.exp(-t / fit["time_constant_s"])
+    return make(
+        "cooling-time-identification",
+        {"true_time_constant_s": 12, "sensor_std_c": 0.02},
+        fit,
+        {"time_s": t, "observed_c": measured, "fitted_c": reconstructed, "true_c": truth},
+        [
+            curve(
+                "Observed one-lump cooling",
+                "time_s",
+                [("observed_c", "Measured"), ("fitted_c", "Fitted"), ("true_c", "Reference")],
+                "Time (s)",
+                "Temperature (C)",
+            )
+        ],
+        assumptions=[
+            "One-lump exponential identification benchmark; the two-node model is not mislabeled as single-exponential."
+        ],
+    )

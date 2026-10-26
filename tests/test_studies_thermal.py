@@ -37,3 +37,7 @@ def test_budget():
 def test_step():
     s = m.step()["summary"]
     assert abs(s["final_junction_c"] - s["steady_junction_c"]) < 0.5 and s["max_energy_residual_j"] < 1e-9
+
+
+def test_cooling():
+    assert abs(m.cooling()["summary"]["time_constant_s"] - 12) < 0.2
