@@ -1,0 +1,8 @@
+{
+  "carrier_hz": 20000,
+  "duration_s": 120,
+  "load_ohm": 0.5,
+  "sensor_bias_c": -15,
+  "shutdown": true,
+  "thermal_step_s": 0.5
+}
