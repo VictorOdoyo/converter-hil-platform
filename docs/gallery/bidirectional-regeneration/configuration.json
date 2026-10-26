@@ -1,0 +1,5 @@
+{
+  "case": "bidirectional-regeneration",
+  "resolution_scale": 1,
+  "seed": 42
+}
