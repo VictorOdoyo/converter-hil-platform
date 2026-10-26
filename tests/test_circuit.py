@@ -81,3 +81,11 @@ def test_random_signed_power_identities():
         power = m.power(x, sa, sb, p)
         rate = np.array([p.inductance_h * x[0], p.capacitance_f * x[1]]) @ derivative
         assert rate == pytest.approx(power["input_w"] - power["output_w"] - power["loss_w"], abs=1e-9)
+
+
+def test_cached_flows_are_immutable():
+    a = m.generator(1, 1)
+    q = m.power_forms(1, 1)
+    transition, _ = m.operators(tuple(a.ravel()), tuple(q.ravel()), 50e-6)
+    with pytest.raises(ValueError):
+        transition[0, 0] = 0

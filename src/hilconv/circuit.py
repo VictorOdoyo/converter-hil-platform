@@ -123,6 +123,8 @@ def operators(generator_values, power_values, dt_s):
     augmented = np.block([[moments, np.zeros((9, 3))], [q, np.zeros((3, 3))]])
     transition = expm(a * dt)
     energy_transition = expm(augmented * dt)[9:, :9]
+    transition.flags.writeable = False
+    energy_transition.flags.writeable = False
     return transition, energy_transition
 
 
