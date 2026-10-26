@@ -120,3 +120,45 @@ def frequency(scale=1, seed=42):
             "Switching energy is an illustrative boundary loss; switching transients are not simulated."
         ],
     )
+
+
+def budget(scale=1, seed=42):
+    from .circuit import Circuit
+    from .electrothermal import operating_point
+
+    load = np.geomspace(0.5, 6, 61 * scale)
+    conduction = []
+    switching = []
+    other = []
+    balance = []
+    for resistance in load:
+        r = operating_point(75, circuit_model=Circuit(load_ohm=float(resistance)))
+        conduction.append(r["device_conduction_w"])
+        switching.append(r["switching_w"])
+        other.append(r["other_loss_w"])
+        balance.append(r["input_w"] - r["output_w"] - r["device_heat_w"] - r["other_loss_w"])
+    return make(
+        "electrothermal-loss-budget",
+        {"junction_c": 75, "carrier_hz": 20000},
+        {"maximum_power_residual_w": float(max(abs(np.array(balance))))},
+        {
+            "load_ohm": load,
+            "conduction_w": np.array(conduction),
+            "switching_w": np.array(switching),
+            "other_w": np.array(other),
+        },
+        [
+            curve(
+                "Non-overlapping power loss partitions",
+                "load_ohm",
+                [
+                    ("conduction_w", "Equivalent semiconductor conduction"),
+                    ("switching_w", "Commutation estimate"),
+                    ("other_w", "Winding and capacitor ESR"),
+                ],
+                "Load resistance (ohm)",
+                "Power (W)",
+                xscale="log",
+            )
+        ],
+    )

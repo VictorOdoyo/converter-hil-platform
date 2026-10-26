@@ -28,3 +28,7 @@ def test_bias():
 def test_frequency():
     s = m.frequency()["summary"]
     assert s["heat_at_100khz_w"] > s["heat_at_5khz_w"]
+
+
+def test_budget():
+    assert m.budget()["summary"]["maximum_power_residual_w"] < 1e-7
