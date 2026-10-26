@@ -33,3 +33,11 @@ def test_instantaneous_energy_balance():
         w = m.power(x, sa, sb, p)
         de = p.inductance_h * x[0] * derivative[0] + p.capacitance_f * x[1] * derivative[1]
         assert de == pytest.approx(w["input_w"] - w["output_w"] - w["loss_w"], abs=1e-10)
+
+
+def test_affine_generator():
+    p = m.Circuit(load_source_v=12)
+    a = m.generator(1, 0, p)
+    x = np.array([2, 30, 1])
+    assert np.allclose((a @ x)[:2], m.rhs(x[:2], 1, 0, p))
+    assert (a @ x)[2] == 0

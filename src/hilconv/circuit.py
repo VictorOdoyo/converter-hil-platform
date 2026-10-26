@@ -79,3 +79,10 @@ def power(value, sa, sb, model=None):
         "output_w": float(r["output_v"] * r["load_a"]),
         "loss_w": float(p.inductor_ohm * x[0] ** 2 + p.capacitor_esr_ohm * r["capacitor_a"] ** 2),
     }
+
+
+def generator(sa, sb, model=None):
+    p = Circuit() if model is None else model
+    zero = rhs([0, 0], sa, sb, p)
+    matrix = np.column_stack([rhs([1, 0], sa, sb, p) - zero, rhs([0, 1], sa, sb, p) - zero, zero])
+    return np.vstack([matrix, np.zeros(3)])
