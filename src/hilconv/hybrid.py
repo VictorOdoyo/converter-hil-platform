@@ -101,3 +101,30 @@ def diode_cycle(value, period_s, topology, duty, model=None):
         for key in totals:
             totals[key] += r[key]
     return {"state": x, **totals}
+
+
+def limited_buck_cycle(value, period_s, duty, current_limit_a, model=None):
+    from .core import positive
+
+    p = Circuit() if model is None else model
+    period = positive(period_s)
+    limit = positive(current_limit_a)
+    if not 0 <= duty <= 1:
+        raise ValueError("bounded duty required")
+    x = state(value)
+    on = period * duty
+    if x[0] >= limit:
+        on = 0.0
+    elif on > 0:
+        crossing = first_current_crossing(x, on, 1, 1, limit, 1, p)
+        if crossing is not None:
+            on = crossing
+    first = advance(x, on, 1, 1, p)
+    second = advance(first["state"], period - on, 0, 1, p)
+    return {
+        "state": second["state"],
+        **{key: first[key] + second[key] for key in ("input_j", "output_j", "loss_j")},
+        "effective_duty": on / period,
+        "limited": bool(on < period * duty - 1e-15),
+        "turnoff_a": float(first["state"][0]),
+    }

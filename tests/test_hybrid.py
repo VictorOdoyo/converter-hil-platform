@@ -40,3 +40,10 @@ def test_light_load_dcm_cycle():
     r = m.diode_cycle([0, 24], 50e-6, "buck", 0.1, p)
     assert r["state"][0] >= 0
     assert r["blocked_s"] > 0
+
+
+def test_comparator_limits_on_pulse():
+    r = m.limited_buck_cycle([2, 24], 50e-6, 0.9, 4)
+    assert r["limited"]
+    assert r["turnoff_a"] == pytest.approx(4, abs=1e-8)
+    assert 0 < r["effective_duty"] < 0.9
