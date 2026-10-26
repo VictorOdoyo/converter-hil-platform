@@ -73,3 +73,9 @@ def test_waveform_end_matches_cycle():
 def test_ideal_ripple_reference():
     r = m.buck_ripple(48, 24, 0.5, 20000, 220e-6, 470e-6)
     assert r["inductor_peak_to_peak_a"] == pytest.approx(48 * 0.5 * 0.5 / (220e-6 * 20000))
+
+
+def test_switching_loss_scale():
+    a = m.switching_loss([5, 10], 48, 20000, output_capacitance_f=0)
+    assert a[1] == pytest.approx(2 * a[0])
+    assert a[1] == pytest.approx(0.7)

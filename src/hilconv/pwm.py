@@ -161,3 +161,23 @@ def buck_ripple(input_v, output_v, duty, switching_hz, inductance_h, capacitance
         "capacitive_peak_to_peak_v": ripple / (8 * f * cap),
         "esr_peak_to_peak_v": esr * ripple,
     }
+
+
+def switching_loss(
+    current_a,
+    bus_v,
+    switching_hz,
+    reference_current_a=10,
+    reference_bus_v=48,
+    turnon_j=20e-6,
+    turnoff_j=15e-6,
+    output_capacitance_f=200e-12,
+):
+    i = np.abs(finite(current_a, real=True))
+    v = positive(bus_v)
+    f = positive(switching_hz)
+    scale = (i / positive(reference_current_a)) * (v / positive(reference_bus_v))
+    on = positive(turnon_j, allow_zero=True) * scale
+    off = positive(turnoff_j, allow_zero=True) * scale
+    coss = positive(output_capacitance_f, allow_zero=True) * v * v
+    return f * (on + off + coss)
