@@ -66,3 +66,7 @@ def nominal(scale=1, seed=42):
 
 def hot(scale=1, seed=42):
     return transient("electrothermal-hot-ambient", scale, seed, ambient_c=55)
+
+
+def shutdown(scale=1, seed=42):
+    return transient("sampled-thermal-shutdown", scale, seed, load_ohm=0.5, shutdown=True)
