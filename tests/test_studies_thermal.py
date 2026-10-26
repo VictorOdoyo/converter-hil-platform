@@ -50,3 +50,7 @@ def test_capacities():
 
 def test_arrhenius():
     assert m.arrhenius()["summary"]["factor_at_150c_for_03ev"] > 10
+
+
+def test_feedback():
+    assert m.feedback()["summary"]["largest_test_pole_s_inv"] > 0

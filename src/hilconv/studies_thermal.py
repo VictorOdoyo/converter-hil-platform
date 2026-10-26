@@ -325,3 +325,34 @@ def arrhenius(scale=1, seed=42):
             "Illustrative activation energies; no absolute lifetime, cycling fatigue or device qualification prediction."
         ],
     )
+
+
+def feedback(scale=1, seed=42):
+    from .electrothermal import Thermal, thermal_poles
+
+    p = Thermal()
+    slope = np.linspace(0, 1.5 / p.total_resistance, 121 * scale)
+    poles = np.array([np.sort(thermal_poles(value, p).real) for value in slope])
+    return make(
+        "thermal-feedback-stability",
+        {"total_thermal_resistance_k_w": p.total_resistance},
+        {"critical_power_slope_w_k": 1 / p.total_resistance, "largest_test_pole_s_inv": float(poles[-1, -1])},
+        {
+            "power_slope_w_k": slope,
+            "fast_pole": poles[:, 0],
+            "slow_pole": poles[:, 1],
+            "zero": np.zeros(len(slope)),
+        },
+        [
+            curve(
+                "Local temperature-power feedback poles",
+                "power_slope_w_k",
+                [("fast_pole", "Fast pole"), ("slow_pole", "Slow pole"), ("zero", "Stability boundary")],
+                "dP/dT (W/K)",
+                "Continuous pole real part (1/s)",
+            )
+        ],
+        assumptions=[
+            "Local linear power slope is supplied; it is not a global runaway certification or a physical failure simulation."
+        ],
+    )
