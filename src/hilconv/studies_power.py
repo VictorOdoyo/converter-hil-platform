@@ -68,3 +68,14 @@ def buck(scale=1, seed=42):
 
 def boost(scale=1, seed=42):
     return periodic("boost-waveform", "boost", 0.4, 0, circuit.Circuit(load_ohm=12), scale)
+
+
+def regeneration(scale=1, seed=42):
+    return periodic(
+        "bidirectional-regeneration",
+        "bidirectional",
+        0.4,
+        1,
+        circuit.Circuit(load_source_v=24, load_ohm=0.3),
+        scale,
+    )
