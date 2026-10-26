@@ -43,3 +43,11 @@ def test_blackout_watchdog():
     assert np.all(r["watchdog"][selected] == 1)
     assert np.all(r["duty"][selected] == 0)
     assert abs(r["output_v"][-1] - 24) < 2
+
+
+def test_corrupt_transport_retained():
+    r = m.simulate(m.Config(duration_s=0.005, corrupt_every=2))
+    assert r["rejected_packets"] > 20
+    assert r["accepted_packets"] > 20
+    assert np.isfinite(r["state"]).all()
+    assert max(abs(r["balance_j"])) < 1e-9
