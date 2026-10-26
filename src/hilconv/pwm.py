@@ -143,3 +143,21 @@ def waveform(value, period_s, topology, duty_a, duty_b=0, model=None, samples=10
         "source_coefficient": np.array(mode_a),
         "output_coefficient": np.array(mode_b),
     }
+
+
+def buck_ripple(input_v, output_v, duty, switching_hz, inductance_h, capacitance_f, esr_ohm=0):
+    vin = positive(input_v)
+    vout = positive(output_v)
+    d = positive(duty)
+    f = positive(switching_hz)
+    ind = positive(inductance_h)
+    cap = positive(capacitance_f)
+    esr = positive(esr_ohm, allow_zero=True)
+    if d >= 1 or vout >= vin or not np.isclose(vout, vin * d):
+        raise ValueError("ideal steady CCM buck conversion ratio required")
+    ripple = (vin - vout) * d / (ind * f)
+    return {
+        "inductor_peak_to_peak_a": ripple,
+        "capacitive_peak_to_peak_v": ripple / (8 * f * cap),
+        "esr_peak_to_peak_v": esr * ripple,
+    }

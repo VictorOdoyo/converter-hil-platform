@@ -68,3 +68,8 @@ def test_waveform_end_matches_cycle():
     r = m.waveform(x, 50e-6, "buck", 0.5)
     assert np.allclose(r["state"][-1], m.cycle(x, 50e-6, "buck", 0.5)["state"])
     assert np.ptp(r["state"][:, 0]) > 2
+
+
+def test_ideal_ripple_reference():
+    r = m.buck_ripple(48, 24, 0.5, 20000, 220e-6, 470e-6)
+    assert r["inductor_peak_to_peak_a"] == pytest.approx(48 * 0.5 * 0.5 / (220e-6 * 20000))
