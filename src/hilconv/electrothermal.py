@@ -120,3 +120,68 @@ def allowable_heat(maximum_junction_c, ambient_c=25, model=None):
     if min(maximum, ambient) <= -273.15:
         raise ValueError("physical thermal limits required")
     return float(max(0, (maximum - ambient) / p.total_resistance))
+
+
+def operating_point(junction_c=25, switching_hz=20000, duty=0.5, circuit_model=None, device=None):
+    from dataclasses import replace
+
+    from . import circuit, pwm
+
+    p = circuit.Circuit(load_ohm=1) if circuit_model is None else circuit_model
+    d = Device() if device is None else device
+    frequency = positive(switching_hz)
+    period = 1 / frequency
+    if p.input_v <= 0 or p.load_source_v != 0:
+        raise ValueError("positive-input resistively loaded buck operating point required")
+    ron = float(resistance(junction_c, d))
+    physical = replace(p, inductor_ohm=p.inductor_ohm + ron)
+    initial = pwm.periodic_state(period, "buck", duty, model=physical)
+    x = initial.copy()
+    moments = np.zeros(3)
+    energy = np.zeros(3)
+    turnoff = float(initial[0])
+    current = np.array([1.0, 0, 0])
+    constant = np.array([0.0, 0, 1])
+    den = 1 + physical.capacitor_esr_ohm / physical.load_ohm
+    voltage = np.array([physical.capacitor_esr_ohm, 1.0, 0]) / den
+
+    def symmetric(a, b):
+        return (np.outer(a, b) + np.outer(b, a)) / 2
+
+    forms = np.array(
+        [symmetric(current, current), symmetric(voltage, constant), symmetric(current, constant)]
+    )
+    for lo, hi, sa, sb in pwm.segments("buck", duty):
+        dt = (hi - lo) * period
+        a = circuit.generator(sa, sb, physical)
+        _, integrals = circuit.operators(tuple(a.ravel()), tuple(forms.ravel()), dt)
+        z = np.r_[x, 1.0]
+        moments += integrals @ np.outer(z, z).ravel()
+        r = circuit.advance(x, dt, sa, sb, physical)
+        x = r["state"]
+        energy += np.array([r["input_j"], r["output_j"], r["loss_j"]])
+        if sa:
+            turnoff = float(x[0])
+    rms = float(np.sqrt(max(0, moments[0] / period)))
+    conduction = float(conduction_loss(rms, junction_c, d))
+    switching = (
+        float(switching_energy(initial[0], turnoff, p.input_v, junction_c, d) * frequency)
+        if 0 < duty < 1
+        else 0.0
+    )
+    pin, pout, loss = energy / period
+    total_input = pin + switching
+    return {
+        "output_v": float(moments[1] / period),
+        "rms_current_a": rms,
+        "mean_current_a": float(moments[2] / period),
+        "device_conduction_w": conduction,
+        "switching_w": switching,
+        "device_heat_w": conduction + switching,
+        "other_loss_w": float(loss - conduction),
+        "input_w": float(total_input),
+        "output_w": float(pout),
+        "efficiency": float(pout / total_input) if total_input > 1e-12 else 0.0,
+        "period_energy_residual_j": float(energy[0] - energy[1] - energy[2]),
+        "resistance_ohm": ron,
+    }

@@ -46,3 +46,10 @@ def test_steady_heat_budget():
     heat = m.allowable_heat(100, 25)
     assert m.steady_temperatures(heat)[0] == pytest.approx(100)
     assert m.allowable_heat(25, 50) == 0
+
+
+def test_electrical_thermal_loss_partition():
+    r = m.operating_point()
+    assert r["device_heat_w"] > 0 and r["other_loss_w"] > 0
+    assert r["input_w"] - r["output_w"] == pytest.approx(r["device_heat_w"] + r["other_loss_w"], abs=1e-8)
+    assert abs(r["period_energy_residual_j"]) < 1e-10
