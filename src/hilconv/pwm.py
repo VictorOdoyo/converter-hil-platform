@@ -83,3 +83,10 @@ def average_step(value, dt_s, topology, duty_a, duty_b=0, model=None):
         "output_j": float(energy[1]),
         "loss_j": float(energy[2]),
     }
+
+
+def equilibrium(topology, duty_a, duty_b=0, model=None):
+    a, _ = averaged(topology, duty_a, duty_b, model)
+    if np.linalg.cond(a[:2, :2]) > 1e12:
+        raise ValueError("finite nonsingular operating point required")
+    return np.linalg.solve(a[:2, :2], -a[:2, 2])

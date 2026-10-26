@@ -46,3 +46,12 @@ def test_averaged_esr_not_duty_substitution():
     assert energy(r["state"], p) - energy(x, p) == pytest.approx(
         r["input_j"] - r["output_j"] - r["loss_j"], abs=2e-12
     )
+
+
+def test_ideal_steady_conversion_ratios():
+    from hilconv.circuit import Circuit
+
+    p = Circuit(inductor_ohm=0, capacitor_esr_ohm=0)
+    assert m.equilibrium("buck", 0.4, model=p)[1] == pytest.approx(0.4 * 48)
+    assert m.equilibrium("boost", 0.4, model=p)[1] == pytest.approx(48 / 0.6)
+    assert m.equilibrium("inverter", 0.75, 0.25, p)[1] == pytest.approx(24)
