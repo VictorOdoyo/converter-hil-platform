@@ -1,3 +1,4 @@
+from collections import deque
 from dataclasses import dataclass
 
 import numpy as np
@@ -68,3 +69,13 @@ class ADC:
             "value": self.lower + code * self.lsb,
             "clipped": (raw < self.lower) | (raw > self.upper),
         }
+
+
+class Delay:
+    def __init__(self, cycles=0, initial=0):
+        integer(cycles, 0)
+        self.queue = deque([initial] * cycles)
+
+    def push(self, value):
+        self.queue.append(value)
+        return self.queue.popleft()

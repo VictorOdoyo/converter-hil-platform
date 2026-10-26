@@ -27,3 +27,9 @@ def test_adc_rails_and_lsb():
     assert np.array_equal(r["code"], [0, 0, 128, 255, 255])
     assert np.array_equal(r["clipped"], [True, False, False, False, True])
     assert abs(r["value"][2] - 25) <= adc.lsb / 2
+
+
+def test_delay_is_causal():
+    delay = m.Delay(2, -1)
+    assert [delay.push(v) for v in [10, 20, 30, 40]] == [-1, -1, 10, 20]
+    assert m.Delay(0).push(9) == 9
