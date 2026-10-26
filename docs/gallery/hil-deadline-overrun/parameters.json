@@ -1,0 +1,5 @@
+{
+  "ordinary_execution_ns": 25000,
+  "overrun_execution_ns": 90000,
+  "period_ns": 50000
+}
