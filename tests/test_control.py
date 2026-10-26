@@ -58,3 +58,16 @@ def test_lqr_stability():
 
 def test_deadtime_polarity():
     assert np.allclose(m.deadtime_error([-2, 0, 2], 48, 1e-6, 20000), [1.92, 0, -1.92])
+
+
+def test_boost_rhp_zero_response():
+    from scipy.signal import ss2tf
+
+    from hilconv.circuit import Circuit
+
+    p = Circuit(inductor_ohm=0, capacitor_esr_ohm=0)
+    lin = m.linearize("boost", 0.4, model=p)
+    numerator, _ = ss2tf(lin["a"], lin["b"], np.array([[0.0, 1.0]]), np.zeros((1, 1)))
+    roots = np.roots(numerator[0])
+    assert np.any(np.isclose(roots, p.load_ohm * 0.6**2 / p.inductance_h, rtol=1e-6))
+    assert abs(m.frequency_response(lin, [1])[0]) > 100

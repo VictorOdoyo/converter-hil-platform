@@ -141,3 +141,12 @@ def deadtime_error(current_a, input_v, deadtime_s, switching_hz, bridge_legs=2):
     if dead * frequency >= 0.5:
         raise ValueError("deadtime shorter than half a carrier period required")
     return -bridge_legs * vin * dead * frequency * np.sign(current)
+
+
+def frequency_response(linearization, frequency_hz):
+    f = finite(frequency_hz, real=True, ndim=1)
+    if np.any(f <= 0):
+        raise ValueError("positive response frequencies required")
+    a = linearization["a"]
+    b = linearization["b"]
+    return np.array([(np.linalg.solve(2j * np.pi * v * np.eye(len(a)) - a, b))[1, 0] for v in f])
