@@ -51,3 +51,9 @@ def test_corrupt_transport_retained():
     assert r["accepted_packets"] > 20
     assert np.isfinite(r["state"]).all()
     assert max(abs(r["balance_j"])) < 1e-9
+
+
+def test_voltage_bias_not_oracle_corrected():
+    r = m.simulate(m.Config(duration_s=0.025, voltage_bias_v=2))
+    assert 21 < r["output_v"][-1] < 23
+    assert 23 < r["measured_v"][-2] < 25
