@@ -150,3 +150,18 @@ def frequency_response(linearization, frequency_hz):
     a = linearization["a"]
     b = linearization["b"]
     return np.array([(np.linalg.solve(2j * np.pi * v * np.eye(len(a)) - a, b))[1, 0] for v in f])
+
+
+def observer_gain(a, measurement, poles):
+    from scipy.signal import place_poles
+
+    a = finite(a, real=True, ndim=2)
+    h = finite(measurement, real=True, ndim=2)
+    return place_poles(a.T, h.T, poles).gain_matrix.T
+
+
+def observer_step(estimate, measurement, command, a, b, h, gain):
+    x = finite(estimate, real=True, ndim=1)
+    z = finite(measurement, real=True, ndim=1)
+    u = np.atleast_1d(finite(command, real=True))
+    return a @ x + b @ u + gain @ (z - h @ x)

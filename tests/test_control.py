@@ -71,3 +71,16 @@ def test_boost_rhp_zero_response():
     roots = np.roots(numerator[0])
     assert np.any(np.isclose(roots, p.load_ohm * 0.6**2 / p.inductance_h, rtol=1e-6))
     assert abs(m.frequency_response(lin, [1])[0]) > 100
+
+
+def test_voltage_only_observer_converges():
+    lin = m.linearize("buck", 0.5)
+    a, b = m.discrete_model(lin["a"], lin["b"], 50e-6)
+    h = np.array([[0.0, 1.0]])
+    gain = m.observer_gain(a, h, [0.7, 0.8])
+    truth = np.array([1.0, 2.0])
+    estimate = np.zeros(2)
+    for _ in range(100):
+        estimate = m.observer_step(estimate, h @ truth, [0], a, b, h, gain)
+        truth = a @ truth
+    assert np.linalg.norm(estimate - truth) < 1e-7
