@@ -74,3 +74,49 @@ def shutdown(scale=1, seed=42):
 
 def bias(scale=1, seed=42):
     return transient("biased-junction-sensor", scale, seed, load_ohm=0.5, shutdown=True, sensor_bias_c=-15)
+
+
+def frequency(scale=1, seed=42):
+    from .electrothermal import operating_point
+
+    f = np.geomspace(5000, 100000, 61 * scale)
+    heat = []
+    efficiency = []
+    switching = []
+    for value in f:
+        r = operating_point(100, float(value))
+        heat.append(r["device_heat_w"])
+        efficiency.append(r["efficiency"])
+        switching.append(r["switching_w"])
+    return make(
+        "thermal-switching-frequency",
+        {"junction_c": 100, "load_ohm": 1, "duty": 0.5},
+        {"heat_at_5khz_w": heat[0], "heat_at_100khz_w": heat[-1]},
+        {
+            "frequency_khz": f / 1000,
+            "heat_w": np.array(heat),
+            "switching_w": np.array(switching),
+            "efficiency_percent": 100 * np.array(efficiency),
+        },
+        [
+            curve(
+                "Periodic device loss at frozen temperature",
+                "frequency_khz",
+                [("heat_w", "Total device heat"), ("switching_w", "Commutation estimate")],
+                "Carrier frequency (kHz)",
+                "Power (W)",
+                xscale="log",
+            ),
+            curve(
+                "Electrical boundary efficiency",
+                "frequency_khz",
+                [("efficiency_percent", "Output / total input")],
+                "Carrier frequency (kHz)",
+                "Efficiency (%)",
+                xscale="log",
+            ),
+        ],
+        assumptions=[
+            "Switching energy is an illustrative boundary loss; switching transients are not simulated."
+        ],
+    )
