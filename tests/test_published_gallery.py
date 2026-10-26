@@ -23,7 +23,7 @@ def captured():
 def test_publication_has_all_default_cases_from_one_clean_revision(captured):
     publication = json.loads((GALLERY / "publication.json").read_text(encoding="utf-8"))
     assert set(captured) == set(CASES)
-    assert publication["case_count"] == 30
+    assert publication["case_count"] == 42
     for case, result in captured.items():
         assert result["configuration"] == ExperimentConfig(case).to_dict()
         assert result["provenance"]["git_revision"] == publication["source_revision"]
