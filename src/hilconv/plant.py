@@ -33,7 +33,11 @@ def integrate_cycle(
     parts = pwm.segments(topology, duty_a, duty_b)
     edges = {start, stop, *schedule.inside(start, stop)}
     if not averaged:
-        edges.update(start + hi * period for _, hi, _, _ in parts if start < start + hi * period < stop)
+        edges.update(
+            start + hi * period
+            for _, hi, _, _ in parts
+            if start + period * 1e-10 < start + hi * period < stop - period * 1e-10
+        )
     totals = {"input_j": 0.0, "output_j": 0.0, "loss_j": 0.0, "blocked_s": 0.0}
     limited = False
     turned_off = False
@@ -44,7 +48,7 @@ def integrate_cycle(
         if averaged:
             r = pwm.average_step(x, dt, topology, duty_a, duty_b, p)
         else:
-            phase = ((lo + hi) / 2 - start) / period
+            phase = float(np.clip(((lo + hi) / 2 - start) / period, 0, np.nextafter(1.0, 0.0)))
             sa, sb = next((a, b) for left, right, a, b in parts if left <= phase < right + 1e-14)
             if topology == "buck" and current_limit_a is not None:
                 limit = positive(current_limit_a)

@@ -27,3 +27,12 @@ def test_short_interval_retains_carrier_phase():
     expected = m.circuit.advance(x, 10e-6, 1, 1, p)
     assert np.allclose(r["state"], expected["state"])
     assert m.trace_output(r["trace"], schedule).shape == (2,)
+
+
+def test_roundoff_at_final_carrier_edge():
+    from hilconv.faults import Schedule
+
+    p = m.circuit.Circuit()
+    r = m.integrate_cycle([3, 24], 0.00415, 5.0000000000000565e-5, 5e-5, "buck", 0.556, 0, Schedule(p))
+    assert len(r["trace"]) == 3
+    assert np.all(np.diff(r["trace"][:, 0]) > 0)
