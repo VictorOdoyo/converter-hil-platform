@@ -33,3 +33,10 @@ def test_delay_is_causal():
     delay = m.Delay(2, -1)
     assert [delay.push(v) for v in [10, 20, 30, 40]] == [-1, -1, 10, 20]
     assert m.Delay(0).push(9) == 9
+
+
+def test_timer_endpoints():
+    r = m.timer_duty([0, 0.1234, 1], 1000)
+    assert np.array_equal(r["counts"], [0, 123, 1000])
+    with pytest.raises(ValueError):
+        m.timer_duty(1.1)

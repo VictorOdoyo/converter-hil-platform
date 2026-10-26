@@ -79,3 +79,12 @@ class Delay:
     def push(self, value):
         self.queue.append(value)
         return self.queue.popleft()
+
+
+def timer_duty(duty, period_counts=1000):
+    integer(period_counts, 2)
+    value = finite(duty, real=True)
+    if np.any((value < 0) | (value > 1)):
+        raise ValueError("bounded PWM duty required")
+    counts = np.rint(value * period_counts).astype(np.int64)
+    return {"counts": counts, "duty": counts / period_counts}
