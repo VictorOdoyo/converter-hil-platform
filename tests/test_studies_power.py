@@ -30,3 +30,8 @@ def test_dcm():
     assert r["summary"]["minimum_boundary_current_a"] >= 0
     assert r["summary"]["max_blocked_fraction"] > 0.3
     assert abs(r["summary"]["energy_residual_j"]) < 1e-9
+
+
+def test_averaging():
+    r = m.averaging()
+    assert r["summary"]["fine_error"] < r["summary"]["coarse_error"] / 4

@@ -140,3 +140,37 @@ def dcm(scale=1, seed=42):
             "Synchronous models permit negative current; this asynchronous buck explicitly opens the diode at a zero crossing."
         ],
     )
+
+
+def averaging(scale=1, seed=42):
+    p = circuit.Circuit()
+    frequencies = np.array([5000.0, 10000.0, 20000.0, 40000.0])
+    duration = 0.002
+    errors = []
+    initial = np.array([4.0, 24.0])
+    for f in frequencies:
+        x = initial.copy()
+        for _ in range(round(duration * f)):
+            x = pwm.cycle(x, 1 / f, "buck", 0.5, model=p)["state"]
+        reference = pwm.average_step(initial, duration, "buck", 0.5, model=p)["state"]
+        errors.append(np.linalg.norm(x - reference))
+    return make(
+        "switched-average-convergence",
+        {"duration_s": duration, "circuit": asdict(p)},
+        {"coarse_error": errors[0], "fine_error": errors[-1]},
+        {"frequency_hz": frequencies, "state_error": np.array(errors)},
+        [
+            curve(
+                "Averaging at carrier boundaries",
+                "frequency_hz",
+                [("state_error", "Switched minus averaged state norm")],
+                "Switching frequency (Hz)",
+                "Mixed-unit state norm",
+                xscale="log",
+                yscale="log",
+            )
+        ],
+        assumptions=[
+            "Boundary current includes ripple phase; mixed-unit norm is only a convergence diagnostic."
+        ],
+    )
