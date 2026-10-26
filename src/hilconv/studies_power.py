@@ -2,7 +2,7 @@ from dataclasses import asdict
 
 import numpy as np
 
-from . import pwm
+from . import circuit, pwm
 from .results import curve, make
 
 
@@ -57,4 +57,10 @@ def periodic(name, topology, da, db, model, scale):
                 "Signed coefficient",
             ),
         ],
+    )
+
+
+def buck(scale=1, seed=42):
+    return periodic(
+        "ideal-buck-ripple", "buck", 0.5, 0, circuit.Circuit(inductor_ohm=0, capacitor_esr_ohm=0), scale
     )
