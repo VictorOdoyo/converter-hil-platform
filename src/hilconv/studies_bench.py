@@ -1,0 +1,97 @@
+from dataclasses import asdict
+
+import numpy as np
+
+from . import bench, circuit
+from .faults import Fault
+from .results import curve, make
+
+
+def solve(name, scale, seed, changes=None, events=(), model_changes=None):
+    c = bench.Config(seed=seed, **(changes or {}))
+    p = circuit.Circuit(**(model_changes or {}))
+    faults = [Fault(*f) for f in events]
+    r = bench.simulate(c, p, faults)
+    arrays = {key: value for key, value in r.items() if isinstance(value, np.ndarray)}
+    arrays["current_a"] = r["state"][:, 0]
+    arrays["capacitor_v"] = r["state"][:, 1]
+    arrays["time_ms"] = r["time_s"] * 1000
+    terminal = r["time_s"] >= r["time_s"][-1] - 0.005
+    summary = {
+        "final_output_v": float(r["output_v"][-1]),
+        "terminal_tracking_rms_v": float(
+            np.sqrt(np.mean((r["output_v"][terminal] - r["reference_v"][terminal]) ** 2))
+        ),
+        "peak_inductor_a": float(max(abs(r["ripple_current_a"]))),
+        "max_energy_residual_j": float(max(abs(r["balance_j"]))),
+        "accepted_packets": r["accepted_packets"],
+        "rejected_packets": r["rejected_packets"],
+        "dropped_packets": r["dropped_packets"],
+        "watchdog_cycles": r["watchdog_cycles"],
+        "limited_cycles": int(sum(r["limited"][:-1])),
+    }
+    plots = [
+        curve(
+            "Physical output and ADC feedback",
+            "time_ms",
+            [("output_v", "Output"), ("measured_v", "Delayed ADC"), ("reference_v", "Reference")],
+            "Time (ms)",
+            "Voltage (V)",
+        ),
+        curve(
+            "Inductor and cascade command",
+            "time_ms",
+            [("current_a", "Actual current"), ("current_reference_a", "Outer-loop current request")],
+            "Time (ms)",
+            "Current (A)",
+        ),
+        curve(
+            "Requested and CRC-gated PWM",
+            "time_ms",
+            [("requested_duty", "Controller"), ("duty", "Applied")],
+            "Time (ms)",
+            "Duty fraction",
+            ylim=(-0.05, 1.05),
+        ),
+        curve(
+            "Exact interval energy residual",
+            "time_ms",
+            [("balance_j", "Stored - input + output + loss")],
+            "Time (ms)",
+            "Residual (J)",
+            ylim=(-1e-7, 1e-7),
+        ),
+        curve(
+            "Transport and comparator events",
+            "time_ms",
+            [("watchdog", "Watchdog"), ("limited", "Peak-current limiter")],
+            "Time (ms)",
+            "Active flag",
+            ylim=(-0.1, 1.1),
+        ),
+        curve(
+            "Cumulative signed energy",
+            "time_ms",
+            [
+                ("input_j", "Input"),
+                ("output_j", "Output port"),
+                ("loss_j", "Resistive loss"),
+                ("energy_j", "Stored"),
+            ],
+            "Time (ms)",
+            "Energy (J)",
+        ),
+    ]
+    return make(
+        name,
+        {"controller": c.to_dict(), "circuit": asdict(p), "faults": [asdict(f) for f in faults]},
+        summary,
+        arrays,
+        plots,
+        assumptions=[
+            "Ideal switches; exact held-mode circuit flows and integrated quadratic power.",
+            "Cascade PI consumes quantized delayed measurements; only plant parameters see physical faults.",
+            "Virtual time transport and modeled deadlines do not demonstrate hardware or host real-time performance.",
+            "Resolution scale preserves the physical sampling/PWM clock; exact interval physics has no integration step size.",
+        ],
+    )
