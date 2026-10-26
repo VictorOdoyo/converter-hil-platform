@@ -1,0 +1,8 @@
+{
+  "activation_energies_ev": [
+    0.2,
+    0.3,
+    0.4
+  ],
+  "reference_c": 25
+}
