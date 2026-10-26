@@ -53,6 +53,7 @@ def integrate_cycle(
             if topology == "buck" and current_limit_a is not None:
                 limit = positive(current_limit_a)
                 if x[0] >= limit:
+                    limited = limited or sa == 1
                     turned_off = True
                 if turned_off:
                     sa = 0

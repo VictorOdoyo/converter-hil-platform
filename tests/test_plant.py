@@ -36,3 +36,12 @@ def test_roundoff_at_final_carrier_edge():
     r = m.integrate_cycle([3, 24], 0.00415, 5.0000000000000565e-5, 5e-5, "buck", 0.556, 0, Schedule(p))
     assert len(r["trace"]) == 3
     assert np.all(np.diff(r["trace"][:, 0]) > 0)
+
+
+def test_already_over_limit_reports_inhibition():
+    from hilconv.faults import Schedule
+
+    p = m.circuit.Circuit()
+    r = m.integrate_cycle([16, 24], 0, 50e-6, 50e-6, "buck", 0.5, 0, Schedule(p), current_limit_a=15)
+    assert r["limited"]
+    assert r["input_j"] == 0
