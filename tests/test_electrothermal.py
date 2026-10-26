@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from hilconv import electrothermal as m
@@ -34,3 +35,8 @@ def test_two_node_thermal_energy():
     r = m.thermal_step([25, 25], 20, 25, 1)
     assert r["temperatures_c"][0] > r["temperatures_c"][1] > 25
     assert abs(r["energy_residual_j"]) < 1e-10
+
+
+def test_thermal_equilibrium_fixed_point():
+    equilibrium = m.steady_temperatures(20)
+    assert np.allclose(m.thermal_step(equilibrium, 20, 25, 10)["temperatures_c"], equilibrium)

@@ -103,3 +103,12 @@ def thermal_step(temperatures_c, power_w, ambient_c, duration_s, model=None):
         "stored_change_j": stored,
         "energy_residual_j": stored - power * dt + float(result[3]),
     }
+
+
+def steady_temperatures(power_w, ambient_c=25, model=None):
+    p = Thermal() if model is None else model
+    power = positive(power_w, allow_zero=True)
+    ambient = float(finite(ambient_c, real=True))
+    if ambient <= -273.15:
+        raise ValueError("physical ambient temperature required")
+    return np.array([ambient + power * p.total_resistance, ambient + power * p.case_ambient_k_w])
