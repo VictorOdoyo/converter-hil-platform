@@ -31,3 +31,10 @@ def test_wire_roundtrip_corruption():
         m.decode(bytes(bad))
     with pytest.raises(ValueError):
         m.decode(data + b"x")
+
+
+def test_sequence_rollover():
+    assert m.newer(0, 2**32 - 1)
+    assert not m.newer(2**32 - 1, 0)
+    assert not m.newer(3, 3)
+    assert not m.newer(2**31, 0)

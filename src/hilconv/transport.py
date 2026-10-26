@@ -44,3 +44,12 @@ def decode(packet):
     if struct.unpack("<I", packet[-4:])[0] != zlib.crc32(packet[:-4]):
         raise ValueError("HIL CRC mismatch")
     return Frame(kind, seq, tick, struct.unpack("<" + "d" * count, packet[20:-4]))
+
+
+def newer(sequence, previous):
+    integer(sequence, 0)
+    integer(previous, 0)
+    if max(sequence, previous) >= 2**32:
+        raise ValueError("32-bit sequence required")
+    distance = (sequence - previous) % 2**32
+    return 0 < distance < 2**31
