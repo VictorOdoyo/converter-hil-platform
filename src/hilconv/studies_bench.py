@@ -147,3 +147,7 @@ def blackout(scale=1, seed=42):
 
 def stale(scale=1, seed=42):
     return solve("hil-stale-commands", scale, seed, {"latency_ns": 500000}, [])
+
+
+def antiwindup(scale=1, seed=42):
+    return solve("saturation-antiwindup", scale, seed, {"reference_v": 70, "reference_step_v": 24}, [])
