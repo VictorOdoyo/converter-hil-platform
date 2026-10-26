@@ -48,3 +48,12 @@ def test_command_latch_fail_closed():
     assert not c.receive(packet, 60)
     assert c.output(249)["duty"] == 0.7
     assert c.output(250)["duty"] == 0
+
+
+def test_virtual_bus_causality_and_loss():
+    b = m.VirtualBus(50, drop_every=2)
+    assert b.send(b"data", 0) == 50
+    assert b.send(b"drop", 1) is None
+    assert not b.poll(49)
+    assert b.poll(50) == [(50, b"data")]
+    assert b.dropped == 1

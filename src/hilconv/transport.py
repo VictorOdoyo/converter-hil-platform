@@ -95,3 +95,50 @@ class CommandLatch:
         self.time = now_ns
         stale = self.tick is None or now_ns - self.tick >= self.watchdog
         return {"duty": self.safe if stale else self.duty, "watchdog": stale}
+
+
+class VirtualBus:
+    def __init__(self, latency_ns=50000, jitter_ns=0, drop_every=0, corrupt_every=0, seed=0):
+        from .core import stream
+
+        self.latency = integer(latency_ns, 0)
+        self.jitter = integer(jitter_ns, 0)
+        self.drop = integer(drop_every, 0)
+        self.corrupt = integer(corrupt_every, 0)
+        self.rng = stream(seed, "transport")
+        self.queue = []
+        self.sent = 0
+        self.dropped = 0
+        self.time = None
+
+    def send(self, packet, now_ns):
+        import heapq
+
+        integer(now_ns, 0)
+        if not isinstance(packet, bytes):
+            raise ValueError("encoded byte packet required")
+        self.sent += 1
+        if self.drop and self.sent % self.drop == 0:
+            self.dropped += 1
+            return None
+        if self.corrupt and self.sent % self.corrupt == 0:
+            data = bytearray(packet)
+            data[-1] ^= 1
+            packet = bytes(data)
+        jitter = int(self.rng.integers(-self.jitter, self.jitter + 1)) if self.jitter else 0
+        arrival = now_ns + max(0, self.latency + jitter)
+        heapq.heappush(self.queue, (arrival, self.sent, packet))
+        return arrival
+
+    def poll(self, now_ns):
+        import heapq
+
+        integer(now_ns, 0)
+        if self.time is not None and now_ns < self.time:
+            raise ValueError("monotone virtual bus clock required")
+        self.time = now_ns
+        packets = []
+        while self.queue and self.queue[0][0] <= now_ns:
+            arrival, _, packet = heapq.heappop(self.queue)
+            packets.append((arrival, packet))
+        return packets
