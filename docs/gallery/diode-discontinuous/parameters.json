@@ -1,0 +1,12 @@
+{
+  "circuit": {
+    "capacitance_f": 0.00047,
+    "capacitor_esr_ohm": 0.03,
+    "inductance_h": 0.00022,
+    "inductor_ohm": 0.08,
+    "input_v": 48,
+    "load_ohm": 100,
+    "load_source_v": 0
+  },
+  "duty": 0.15
+}
