@@ -112,3 +112,11 @@ def steady_temperatures(power_w, ambient_c=25, model=None):
     if ambient <= -273.15:
         raise ValueError("physical ambient temperature required")
     return np.array([ambient + power * p.total_resistance, ambient + power * p.case_ambient_k_w])
+
+
+def allowable_heat(maximum_junction_c, ambient_c=25, model=None):
+    p = Thermal() if model is None else model
+    maximum, ambient = finite([maximum_junction_c, ambient_c], real=True)
+    if min(maximum, ambient) <= -273.15:
+        raise ValueError("physical thermal limits required")
+    return float(max(0, (maximum - ambient) / p.total_resistance))

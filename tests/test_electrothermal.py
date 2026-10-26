@@ -40,3 +40,9 @@ def test_two_node_thermal_energy():
 def test_thermal_equilibrium_fixed_point():
     equilibrium = m.steady_temperatures(20)
     assert np.allclose(m.thermal_step(equilibrium, 20, 25, 10)["temperatures_c"], equilibrium)
+
+
+def test_steady_heat_budget():
+    heat = m.allowable_heat(100, 25)
+    assert m.steady_temperatures(heat)[0] == pytest.approx(100)
+    assert m.allowable_heat(25, 50) == 0
