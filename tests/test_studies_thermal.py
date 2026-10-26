@@ -61,3 +61,10 @@ def test_feedback():
 def test_envelope():
     r = m.envelope()
     assert np.all(r["arrays"]["cooling_1"] >= r["arrays"]["cooling_6"])
+
+
+def test_biased_sensor_delays_shutdown():
+    normal = m.shutdown()["summary"]
+    biased = m.bias()["summary"]
+    assert normal["shutdown_samples"] > 0 and biased["shutdown_samples"] > 0
+    assert biased["peak_junction_c"] > normal["peak_junction_c"] + 5
