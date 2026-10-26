@@ -143,3 +143,7 @@ def corruption(scale=1, seed=42):
 
 def blackout(scale=1, seed=42):
     return solve("hil-blackout", scale, seed, {"blackout_s": [0.015, 0.018]}, [])
+
+
+def stale(scale=1, seed=42):
+    return solve("hil-stale-commands", scale, seed, {"latency_ns": 500000}, [])
