@@ -1,6 +1,8 @@
+from dataclasses import dataclass
+
 import numpy as np
 
-from .core import finite, positive
+from .core import finite, integer, positive
 
 
 class PI:
@@ -37,3 +39,32 @@ def bumpless(controller, command, error=0, feedforward=0):
         command - controller.kp * float(finite(error, real=True)) - float(finite(feedforward, real=True))
     )
     return controller.integral
+
+
+@dataclass(frozen=True)
+class ADC:
+    bits: int = 12
+    lower: float = -20
+    upper: float = 20
+    offset: float = 0
+    gain: float = 1
+
+    def __post_init__(self):
+        integer(self.bits)
+        finite([self.lower, self.upper, self.offset, self.gain], real=True)
+        if self.bits > 24 or self.lower >= self.upper or self.gain <= 0:
+            raise ValueError("bounded ADC range and positive sensor gain required")
+
+    @property
+    def lsb(self):
+        return (self.upper - self.lower) / (2**self.bits - 1)
+
+    def convert(self, value):
+        raw = finite(value, real=True) * self.gain + self.offset
+        clipped = np.clip(raw, self.lower, self.upper)
+        code = np.rint((clipped - self.lower) / self.lsb).astype(np.int64)
+        return {
+            "code": code,
+            "value": self.lower + code * self.lsb,
+            "clipped": (raw < self.lower) | (raw > self.upper),
+        }
