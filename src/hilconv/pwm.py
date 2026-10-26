@@ -1,5 +1,7 @@
 from itertools import pairwise
 
+import numpy as np
+
 from .core import finite, positive
 
 
@@ -57,3 +59,27 @@ def cycle(value, period_s, topology, duty_a, duty_b=0, model=None):
         for key in totals:
             totals[key] += r[key]
     return {"state": x, **totals}
+
+
+def averaged(topology, duty_a, duty_b=0, model=None):
+    from .circuit import generator, power_forms
+
+    parts = fractions(topology, duty_a, duty_b)
+    a = sum(f * generator(sa, sb, model) for f, sa, sb in parts)
+    q = sum(f * power_forms(sa, sb, model) for f, sa, sb in parts)
+    return a, q
+
+
+def average_step(value, dt_s, topology, duty_a, duty_b=0, model=None):
+    from .circuit import operators, state
+
+    a, q = averaged(topology, duty_a, duty_b, model)
+    z = np.r_[state(value), 1.0]
+    transition, integrals = operators(tuple(a.ravel()), tuple(q.ravel()), dt_s)
+    energy = integrals @ np.outer(z, z).ravel()
+    return {
+        "state": (transition @ z)[:2],
+        "input_j": float(energy[0]),
+        "output_j": float(energy[1]),
+        "loss_j": float(energy[2]),
+    }

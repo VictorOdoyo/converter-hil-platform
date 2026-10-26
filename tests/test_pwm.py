@@ -33,3 +33,16 @@ def test_cycle_energy():
     assert energy(r["state"]) - energy(x) == pytest.approx(
         r["input_j"] - r["output_j"] - r["loss_j"], abs=1e-12
     )
+
+
+def test_averaged_esr_not_duty_substitution():
+    from hilconv.circuit import Circuit, energy, generator
+
+    p = Circuit(capacitor_esr_ohm=0.5)
+    a, _q = m.averaged("boost", 0.5, model=p)
+    assert not np.allclose(a, generator(1, 0.5, p))
+    x = np.array([5.0, 70.0])
+    r = m.average_step(x, 0.0001, "boost", 0.5, model=p)
+    assert energy(r["state"], p) - energy(x, p) == pytest.approx(
+        r["input_j"] - r["output_j"] - r["loss_j"], abs=2e-12
+    )
