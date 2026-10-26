@@ -58,3 +58,7 @@ def transient(name, scale, seed, **changes):
             "Synthetic equivalent conducting path and one declared commutation pair per carrier; no device datasheet calibration.",
         ],
     )
+
+
+def nominal(scale=1, seed=42):
+    return transient("electrothermal-buck", scale, seed)
