@@ -105,6 +105,7 @@ def simulate(config=None, model=None, faults=()):
     clipped_count = 0
     watchdog_count = 0
     packet_log = []
+    wire_packets = []
     for k, time in enumerate(t[:-1]):
         dt = t[k + 1] - time
         now = round(time * 1e9)
@@ -128,6 +129,7 @@ def simulate(config=None, model=None, faults=()):
         for arrival, data in bus.poll(now):
             accepted = latch.receive(data, now)
             packet_log.append((arrival, now, int(accepted)))
+            wire_packets.append(np.frombuffer(data, dtype=np.uint8).copy())
         command = latch.output(now)
         duty = command["duty"]
         r = plant.integrate_cycle(
@@ -181,6 +183,7 @@ def simulate(config=None, model=None, faults=()):
         "ripple_current_a": ripple[:, 1],
         "ripple_capacitor_v": ripple[:, 2],
         "packet_log": np.asarray(packet_log, dtype=np.int64).reshape(-1, 3),
+        "received_packet_bytes": np.asarray(wire_packets, dtype=np.uint8).reshape(-1, 32),
         "accepted_packets": latch.accepted,
         "rejected_packets": latch.rejected,
         "dropped_packets": bus.dropped,

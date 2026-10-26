@@ -57,3 +57,12 @@ def test_voltage_bias_not_oracle_corrected():
     r = m.simulate(m.Config(duration_s=0.025, voltage_bias_v=2))
     assert 21 < r["output_v"][-1] < 23
     assert 23 < r["measured_v"][-2] < 25
+
+
+def test_wire_packet_bytes_preserved():
+    from hilconv.transport import decode
+
+    r = m.simulate(m.Config(duration_s=0.001))
+    assert r["received_packet_bytes"].shape == (len(r["packet_log"]), 32)
+    frame = decode(r["received_packet_bytes"][0].tobytes())
+    assert frame.tick_ns == 0 and frame.sequence == 0
