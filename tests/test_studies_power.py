@@ -37,7 +37,7 @@ def test_dcm():
 
 def test_averaging():
     r = m.averaging()
-    assert r["summary"]["fine_error"] < r["summary"]["coarse_error"] / 4
+    assert r["summary"]["fine_current_error_a"] < r["summary"]["coarse_current_error_a"] / 4
 
 
 def test_esr():

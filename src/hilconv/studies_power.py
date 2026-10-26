@@ -171,25 +171,39 @@ def averaging(scale=1, seed=42):
         for _ in range(round(duration * f)):
             x = pwm.cycle(x, 1 / f, "buck", 0.5, model=p)["state"]
         reference = pwm.average_step(initial, duration, "buck", 0.5, model=p)["state"]
-        errors.append(np.linalg.norm(x - reference))
+        errors.append(abs(x - reference))
+    errors = np.array(errors)
     return make(
         "switched-average-convergence",
         {"duration_s": duration, "circuit": asdict(p)},
-        {"coarse_error": errors[0], "fine_error": errors[-1]},
-        {"frequency_hz": frequencies, "state_error": np.array(errors)},
+        {
+            "coarse_current_error_a": float(errors[0, 0]),
+            "fine_current_error_a": float(errors[-1, 0]),
+            "fine_voltage_error_v": float(errors[-1, 1]),
+        },
+        {"frequency_hz": frequencies, "current_error_a": errors[:, 0], "voltage_error_v": errors[:, 1]},
         [
             curve(
                 "Averaging at carrier boundaries",
                 "frequency_hz",
-                [("state_error", "Switched minus averaged state norm")],
+                [("current_error_a", "Current error")],
                 "Switching frequency (Hz)",
-                "Mixed-unit state norm",
+                "Current difference (A)",
                 xscale="log",
                 yscale="log",
-            )
+            ),
+            curve(
+                "Capacitor boundary convergence",
+                "frequency_hz",
+                [("voltage_error_v", "Voltage error")],
+                "Switching frequency (Hz)",
+                "Voltage difference (V)",
+                xscale="log",
+                yscale="log",
+            ),
         ],
         assumptions=[
-            "Boundary current includes ripple phase; mixed-unit norm is only a convergence diagnostic."
+            "Boundary current includes the physical ripple phase; current and voltage errors retain their own SI units."
         ],
     )
 
