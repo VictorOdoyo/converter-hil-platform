@@ -53,3 +53,12 @@ def test_electrical_thermal_loss_partition():
     assert r["device_heat_w"] > 0 and r["other_loss_w"] > 0
     assert r["input_w"] - r["output_w"] == pytest.approx(r["device_heat_w"] + r["other_loss_w"], abs=1e-8)
     assert abs(r["period_energy_residual_j"]) < 1e-10
+
+
+def test_shutdown_hysteresis():
+    latch = m.ThermalLatch()
+    assert not latch.update(0, 95)
+    assert not latch.update(1, 60)
+    assert latch.update(2, 60)
+    with pytest.raises(ValueError):
+        latch.update(1, 80)

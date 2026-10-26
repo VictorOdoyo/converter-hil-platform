@@ -185,3 +185,26 @@ def operating_point(junction_c=25, switching_hz=20000, duty=0.5, circuit_model=N
         "period_energy_residual_j": float(energy[0] - energy[1] - energy[2]),
         "resistance_ohm": ron,
     }
+
+
+class ThermalLatch:
+    def __init__(self, trip_c=90, reset_c=75, minimum_off_s=2):
+        self.trip, self.reset = finite([trip_c, reset_c], real=True)
+        self.dwell = positive(minimum_off_s, allow_zero=True)
+        if self.reset >= self.trip:
+            raise ValueError("ordered trip and reset temperatures required")
+        self.enabled = True
+        self.changed = None
+        self.time = None
+
+    def update(self, time_s, measured_junction_c):
+        time, temp = finite([time_s, measured_junction_c], real=True)
+        if self.time is not None and time < self.time:
+            raise ValueError("monotone thermal latch clock required")
+        self.time = time
+        if self.enabled and temp >= self.trip:
+            self.enabled = False
+            self.changed = time
+        elif not self.enabled and temp <= self.reset and time - self.changed >= self.dwell:
+            self.enabled = True
+        return self.enabled
