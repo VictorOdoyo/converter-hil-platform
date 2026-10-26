@@ -1,0 +1,5 @@
+{
+  "carrier_hz": 20000,
+  "duration_s": 120,
+  "thermal_step_s": 0.5
+}
