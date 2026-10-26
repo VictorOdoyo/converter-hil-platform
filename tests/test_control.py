@@ -40,3 +40,10 @@ def test_timer_endpoints():
     assert np.array_equal(r["counts"], [0, 123, 1000])
     with pytest.raises(ValueError):
         m.timer_duty(1.1)
+
+
+def test_discrete_linearization():
+    r = m.linearize("buck", 0.5)
+    a, b = m.discrete_model(r["a"], r["b"], 50e-6)
+    assert a.shape == (2, 2) and b.shape == (2, 1)
+    assert max(abs(np.linalg.eigvals(a))) < 1

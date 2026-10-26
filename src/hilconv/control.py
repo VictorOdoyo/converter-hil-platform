@@ -88,3 +88,29 @@ def timer_duty(duty, period_counts=1000):
         raise ValueError("bounded PWM duty required")
     counts = np.rint(value * period_counts).astype(np.int64)
     return {"counts": counts, "duty": counts / period_counts}
+
+
+def linearize(topology, duty_a, duty_b=0, model=None):
+    from .pwm import averaged, equilibrium
+
+    a, _ = averaged(topology, duty_a, duty_b, model)
+    x = equilibrium(topology, duty_a, duty_b, model)
+    delta = 1e-5
+    if not delta < duty_a < 1 - delta:
+        raise ValueError("interior duty operating point required")
+    plus, _ = averaged(topology, duty_a + delta, duty_b, model)
+    minus, _ = averaged(topology, duty_a - delta, duty_b, model)
+    b = ((plus - minus) @ np.r_[x, 1.0])[:2] / (2 * delta)
+    return {"state": x, "a": a[:2, :2], "b": b[:, None]}
+
+
+def discrete_model(a, b, period_s):
+    from scipy.linalg import expm
+
+    a = finite(a, real=True, ndim=2)
+    b = finite(b, real=True, ndim=2)
+    n = len(a)
+    if a.shape != (n, n) or b.shape[0] != n:
+        raise ValueError("aligned continuous state matrices required")
+    transition = expm(np.block([[a, b], [np.zeros((b.shape[1], n + b.shape[1]))]]) * positive(period_s))
+    return transition[:n, :n], transition[:n, n:]
