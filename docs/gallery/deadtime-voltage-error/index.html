@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>deadtime-voltage-error | Converter HIL Platform</title>
+<style>body{font:16px system-ui;max-width:1300px;margin:3rem auto;padding:0 1rem;color:#172033}
+img{width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{padding:.55rem;border-bottom:1px solid #dce1ea;text-align:left}
+code{overflow-wrap:anywhere}a{color:#164ac4}</style>
+<h1>deadtime-voltage-error</h1><p>Reproducible switched converters and virtual HIL. Units and field components are printed on the
+scientific axes. peak d-q quantities use exp(+i omega t); terminal currents point into the protected line.</p>
+<p><a href="fields.npz">Sealed numeric archive</a> | <a href="summary.csv">Summary CSV</a> |
+<a href="parameters.json">Physical parameters</a> | <a href="configuration.json">Run request</a> |
+<a href="provenance.json">Source and environment</a></p>
+<img src="figure.png" alt="Scientific curves and electromagnetic field maps for deadtime-voltage-error">
+<table><tr><th>peak_error_v</th><td>1.9200000000000002</td></tr></table><h2>Data tables</h2><ul></ul>
+<h2>Assumptions and interpretation</h2><ul><li>Average polarity approximation with fixed current sign over commutation, not a switching transient or diode reverse-recovery solve.</li></ul>
+<p>These are simulations, not hardware measurements. Network-model, measurement, timing and statistical
+uncertainty require distinct convergence checks. Singular or unilluminated data use explicit masks.</p>
+<p>Source revision: <code>b037b9bac4fb91b47282a5f1fd30d5a00f340256</code>.
+Dirty checkout: <code>False</code>.
+Configuration SHA-256: <code>c6f800273f205396d2ffe080fd71fe2ac72fba2d22df5b45b97f7244191748d0</code>.</p>
+<p>Replay preserves original source and parameter provenance. SHA-256 manifests detect changed bytes;
+they are unsigned integrity records, not certificates of physical validity.</p></html>
