@@ -57,3 +57,10 @@ def test_bias():
     assert r["summary"]["max_energy_residual_j"] < 1e-7
     assert r["arrays"]["time_s"][-1] == 0.04
     assert np.isfinite(r["arrays"]["state"]).all()
+
+
+def test_delay():
+    r = m.delay()
+    assert r["summary"]["max_energy_residual_j"] < 1e-7
+    assert r["arrays"]["time_s"][-1] == 0.04
+    assert np.isfinite(r["arrays"]["state"]).all()

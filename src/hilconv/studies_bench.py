@@ -127,3 +127,7 @@ def low_adc(scale=1, seed=42):
 
 def bias(scale=1, seed=42):
     return solve("biased-voltage-sensor", scale, seed, {"voltage_bias_v": 2}, [])
+
+
+def delay(scale=1, seed=42):
+    return solve("delayed-measurement", scale, seed, {"measurement_delay": 3}, [])
