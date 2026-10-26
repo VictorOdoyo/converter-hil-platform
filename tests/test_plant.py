@@ -45,3 +45,13 @@ def test_already_over_limit_reports_inhibition():
     r = m.integrate_cycle([16, 24], 0, 50e-6, 50e-6, "buck", 0.5, 0, Schedule(p), current_limit_a=15)
     assert r["limited"]
     assert r["input_j"] == 0
+
+
+def test_plant_diode_trace_retains_zero_crossing():
+    from hilconv.faults import Schedule
+
+    p = m.circuit.Circuit()
+    r = m.integrate_cycle([0, 24], 0, 50e-6, 50e-6, "buck", 0.15, 0, Schedule(p), diode=True)
+    assert len(r["trace"]) == 4
+    assert max(r["trace"][:, 1]) > 0
+    assert r["trace"][-2, 1] == 0 and r["trace"][-1, 1] == 0

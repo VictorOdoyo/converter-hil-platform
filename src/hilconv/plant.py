@@ -75,6 +75,7 @@ def integrate_cycle(
                     r = circuit.advance(x, dt, sa, sb, p)
             elif diode:
                 r = diode_advance(x, dt, sa, sb, p)
+                trace.extend((lo + row[0], row[1], row[2]) for row in r["trace"][1:-1])
             else:
                 r = circuit.advance(x, dt, sa, sb, p)
         x = r["state"]
