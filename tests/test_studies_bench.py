@@ -29,3 +29,10 @@ def test_sag():
     assert r["summary"]["max_energy_residual_j"] < 1e-7
     assert r["arrays"]["time_s"][-1] == 0.04
     assert np.isfinite(r["arrays"]["state"]).all()
+
+
+def test_short():
+    r = m.short()
+    assert r["summary"]["max_energy_residual_j"] < 1e-7
+    assert r["arrays"]["time_s"][-1] == 0.04
+    assert np.isfinite(r["arrays"]["state"]).all()
