@@ -61,3 +61,10 @@ def test_switched_periodic_fixed_point():
     x = m.periodic_state(50e-6, "boost", 0.4)
     y = m.cycle(x, 50e-6, "boost", 0.4)["state"]
     assert np.allclose(x, y, atol=1e-10)
+
+
+def test_waveform_end_matches_cycle():
+    x = m.periodic_state(50e-6, "buck", 0.5)
+    r = m.waveform(x, 50e-6, "buck", 0.5)
+    assert np.allclose(r["state"][-1], m.cycle(x, 50e-6, "buck", 0.5)["state"])
+    assert np.ptp(r["state"][:, 0]) > 2

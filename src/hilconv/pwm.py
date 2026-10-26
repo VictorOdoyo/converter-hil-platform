@@ -2,7 +2,7 @@ from itertools import pairwise
 
 import numpy as np
 
-from .core import finite, positive
+from .core import finite, integer, positive
 
 
 def mode(topology, gate_a, gate_b=0):
@@ -105,3 +105,41 @@ def periodic_state(period_s, topology, duty_a, duty_b=0, model=None):
     if np.linalg.cond(matrix) > 1e12:
         raise ValueError("nonsingular periodic operating point required")
     return np.linalg.solve(matrix, mapping[:2, 2])
+
+
+def waveform(value, period_s, topology, duty_a, duty_b=0, model=None, samples=101):
+    from scipy.linalg import expm
+
+    from .circuit import generator, ports, state
+
+    integer(samples, 2)
+    period = positive(period_s)
+    t = np.linspace(0, period, samples)
+    initial = state(value)
+    parts = segments(topology, duty_a, duty_b)
+    states = []
+    output = []
+    mode_a = []
+    mode_b = []
+    for time in t:
+        x = initial.copy()
+        phase = min(time / period, np.nextafter(1.0, 0.0))
+        active = parts[-1][2:]
+        for lo, hi, sa, sb in parts:
+            if time >= lo * period:
+                duration = min(time, hi * period) - lo * period
+                if duration > 0:
+                    x = (expm(generator(sa, sb, model) * duration) @ np.r_[x, 1.0])[:2]
+            if lo <= phase < hi:
+                active = (sa, sb)
+        states.append(x)
+        output.append(ports(x, *active, model)["output_v"])
+        mode_a.append(active[0])
+        mode_b.append(active[1])
+    return {
+        "time_s": t,
+        "state": np.array(states),
+        "output_v": np.array(output),
+        "source_coefficient": np.array(mode_a),
+        "output_coefficient": np.array(mode_b),
+    }
