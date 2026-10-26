@@ -119,3 +119,7 @@ def short(scale=1, seed=42):
 
 def open_load(scale=1, seed=42):
     return solve("buck-load-open", scale, seed, {}, [[0.020013, "load_ohm", 1000000]])
+
+
+def low_adc(scale=1, seed=42):
+    return solve("low-resolution-adc", scale, seed, {"adc_bits": 7}, [])
