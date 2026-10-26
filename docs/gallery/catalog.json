@@ -1,0 +1,905 @@
+{
+  "experiments": [
+    {
+      "archive": "buck-regulation/fields.npz",
+      "case": "buck-regulation",
+      "configuration": {
+        "case": "buck-regulation",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "c3ac3ef85a36b8f166f320f5b11dbebc62456e6d5c3abda823a4ff5d57f72793",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "4da4dad5f254be4d6ea8a13314c7f22c4f19deeedf1fa91cf8e628c0e17403a2",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.024315126937,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 4.73232564246473e-15,
+        "maximum_recorded_current_a": 9.231688904197059,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.231688904197059,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.02678180824940498,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "buck-averaged/fields.npz",
+      "case": "buck-averaged",
+      "configuration": {
+        "case": "buck-averaged",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "f23d670dbb902b049cd6592fd0f18b70de4bc3101e31cd3b65bf2a0dd8c2aa7d",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "d4cad94ea48b9698e13b4612f472065cfbdc45eaf9e08cd8e19351b89f236255",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.01437141903472,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 4.565792188770956e-15,
+        "maximum_recorded_current_a": 7.553244154557351,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 7.553244154557351,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.017242372788477286,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "buck-load-step/fields.npz",
+      "case": "buck-load-step",
+      "configuration": {
+        "case": "buck-load-step",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "2c4099eb713bf027aeb93728868cf2c948e2b521df3d5bc3af388894acc30f55",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "09f6c82170063903e1b98f9b36f4064161e00870e89a354bd03652b3fbf937ba",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 23.531562936221675,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 6.689093723366568e-15,
+        "maximum_recorded_current_a": 9.252142491796205,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.252142491796205,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.6415923164326481,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "buck-input-sag/fields.npz",
+      "case": "buck-input-sag",
+      "configuration": {
+        "case": "buck-input-sag",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "5144da199b5ec2e57423f817384f7a22fd8bb1564186673c698e5364950da281",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "a17bbf3ec35d4077de3ef981042be99bf69d3d907cad7756fd636fc34eaae5a4",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.03006824532985,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 8.854028621385623e-15,
+        "maximum_recorded_current_a": 10.247195037939768,
+        "minimum_recorded_current_a": -3.838374197164001,
+        "peak_inductor_a": 10.247195037939768,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.05503564900139465,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "buck-output-short/fields.npz",
+      "case": "buck-output-short",
+      "configuration": {
+        "case": "buck-output-short",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "44b0a81471ade66d2af5c5672c2be8cedf48d0ad0e2f586165bff3a8015e962e",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "bf6813847b334a63164b792ebff08ad6ce43ee594becae0aeacb98fecb37640c",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 2.459648661409315,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 6.050715484207103e-15,
+        "maximum_recorded_current_a": 14.512757881281539,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 14.512757881281539,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 21.541117235100852,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "buck-load-open/fields.npz",
+      "case": "buck-load-open",
+      "configuration": {
+        "case": "buck-load-open",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "bc05c36ce82d86747a461e2e54b15df3f31c01476e2671c9e357d7551f0b4ce1",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "b2e5aaefaef0009fb07722296a46c2cf0a5608afe9a9218f02490188a36e2108",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.191881549435188,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 6.369904603786836e-15,
+        "maximum_recorded_current_a": 9.231688904197059,
+        "minimum_recorded_current_a": -1.7775912604977175,
+        "peak_inductor_a": 9.231688904197059,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.3609109320160728,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "low-resolution-adc/fields.npz",
+      "case": "low-resolution-adc",
+      "configuration": {
+        "case": "low-resolution-adc",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "4673b76b3ca59cc133b831503236cd44789a2a0d2ae0a9f0af8e1bfc2ee81d67",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "406b655e9fe30f38bc84964fcd9789d4bdd4a08793ed15b1dfc158cfa5c50c89",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.018175437812054,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 9.832412661836543e-15,
+        "maximum_recorded_current_a": 9.192188265723955,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.192188265723955,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.188089236195925,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "biased-voltage-sensor/fields.npz",
+      "case": "biased-voltage-sensor",
+      "configuration": {
+        "case": "biased-voltage-sensor",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "87ecd20206d5e77084b62914b7d3a81c5738159d4296aa16c8893932dc23c974",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "3cff8e121a0bea3b6d7150edba5f84b7d9d906bbfbc364f767178048b5a81cbb",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 22.007861637292837,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 9.672818102046676e-15,
+        "maximum_recorded_current_a": 8.808311535487809,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 8.808311535487809,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 1.9715495346065375,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "delayed-measurement/fields.npz",
+      "case": "delayed-measurement",
+      "configuration": {
+        "case": "delayed-measurement",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "6a3df8a330ab0bf80927b0abb9bdcedafa177f9a9e47f2de6e414d9f2570004e",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "c9e4182ea3d346512bd579135abfe2399ad56695913fedb40a8cd57034f5b6b2",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 24.02378286343609,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 1.2961853812498703e-14,
+        "maximum_recorded_current_a": 9.430571273285661,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.430571273285661,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.028112905641139503,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "hil-packet-loss/fields.npz",
+      "case": "hil-packet-loss",
+      "configuration": {
+        "case": "hil-packet-loss",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "76d68fb7aba458bae77101a691a1a565aefe0a605d469a1963021abe9faf74be",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "df04eb43f4acd19515807e28973a15d12294354d00c28c37d7c657c83566e688",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 533,
+        "dropped_packets": 266,
+        "final_output_v": 24.014967624943434,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 1.1171619185290638e-14,
+        "maximum_recorded_current_a": 9.260554952305988,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.260554952305988,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.0310460726971419,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "hil-corruption/fields.npz",
+      "case": "hil-corruption",
+      "configuration": {
+        "case": "hil-corruption",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "cf958d5b33272e3877e5f4fd1083d9875df8b6b8f0e515cf4285bd6c13df7276",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "147657ce98036babf4711b53843c2d9ba39ad1fa8e0081642c1cde70ce222d93",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 533,
+        "dropped_packets": 0,
+        "final_output_v": 24.014967624943434,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 1.1171619185290638e-14,
+        "maximum_recorded_current_a": 9.260554952305988,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 9.260554952305988,
+        "rejected_packets": 266,
+        "terminal_tracking_rms_v": 0.0310460726971419,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "hil-blackout/fields.npz",
+      "case": "hil-blackout",
+      "configuration": {
+        "case": "hil-blackout",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "fb2f481232428d1a175d2cc2b3027de297b33377a0c423e76c4aed3e589fe5c4",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "ff6a1287731f1bc69fa62dbbef953c5c37e250febdc59a7d21502ed041e3c112",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 739,
+        "dropped_packets": 0,
+        "final_output_v": 23.712760756566695,
+        "limited_cycles": 38,
+        "max_energy_residual_j": 5.3013149425851225e-15,
+        "maximum_recorded_current_a": 18.94914741584433,
+        "minimum_recorded_current_a": -29.18954114497774,
+        "peak_inductor_a": 29.18954114497774,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 0.41863946142178216,
+        "watchdog_cycles": 57
+      }
+    },
+    {
+      "archive": "hil-stale-commands/fields.npz",
+      "case": "hil-stale-commands",
+      "configuration": {
+        "case": "hil-stale-commands",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "db341417c655d18140213f786c930be813cf9104c81f68382f299c27d2971a09",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "faf044532f9629463d374bcbee043a36ad403b44966b1467a0a0264851e1a779",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 0,
+        "dropped_packets": 0,
+        "final_output_v": 0.0,
+        "limited_cycles": 0,
+        "max_energy_residual_j": 0.0,
+        "maximum_recorded_current_a": 0.0,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 0.0,
+        "rejected_packets": 790,
+        "terminal_tracking_rms_v": 24.0,
+        "watchdog_cycles": 800
+      }
+    },
+    {
+      "archive": "saturation-antiwindup/fields.npz",
+      "case": "saturation-antiwindup",
+      "configuration": {
+        "case": "saturation-antiwindup",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "1b5f3392362ae5ac65f97c99a5da79e4682ea50b6f3df61bf62b77bb97efedf5",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "72912ef9b2d93cca477b532726a008b28029d634f06d9cf6f3a7dff5694013a6",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 22.33525235148002,
+        "limited_cycles": 28,
+        "max_energy_residual_j": 3.289035710452026e-14,
+        "maximum_recorded_current_a": 15.000000000033772,
+        "minimum_recorded_current_a": -16.33478915770731,
+        "peak_inductor_a": 16.33478915770731,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 2.507293070873881,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "saturation-unprotected/fields.npz",
+      "case": "saturation-unprotected",
+      "configuration": {
+        "case": "saturation-unprotected",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "6c2304b63b9959f7631eef86a536a7f659f5d7c2e87b41f4b71305b537e3ed95",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "901dfbe8c77de7784ad2d2b7d27a84f6c3ff27a0fb2700d7eab4bbb7ecf3d15a",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted_packets": 799,
+        "dropped_packets": 0,
+        "final_output_v": 44.99632731215854,
+        "limited_cycles": 28,
+        "max_energy_residual_j": 1.6014967130217883e-14,
+        "maximum_recorded_current_a": 15.000000000033772,
+        "minimum_recorded_current_a": 0.0,
+        "peak_inductor_a": 15.000000000033772,
+        "rejected_packets": 0,
+        "terminal_tracking_rms_v": 20.996326863936495,
+        "watchdog_cycles": 1
+      }
+    },
+    {
+      "archive": "ideal-buck-ripple/fields.npz",
+      "case": "ideal-buck-ripple",
+      "configuration": {
+        "case": "ideal-buck-ripple",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "eafd565c73177de943e56b50e2a1802ec3cfff4fc5a4e2e8990666fdda676741",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "84c8b97586969e20c5294237db5f8864cd8b585dbe44488bdf6f33ee0f018d50",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "capacitor_ripple_v": 0.03628947604537203,
+        "current_ripple_a": 2.728647294466869,
+        "input_w": 96.00002926421752,
+        "loss_w": 0.0,
+        "output_w": 96.00002926421728,
+        "periodic_state_error": 3.580361673049448e-15
+      }
+    },
+    {
+      "archive": "boost-waveform/fields.npz",
+      "case": "boost-waveform",
+      "configuration": {
+        "case": "boost-waveform",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "0f11e32b77fca3b49898d7739ac8b15686ea0dbb02c91453cbbc5a157d39fda0",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "e296b31984459fa955fb42cb0921dcbb9e34944312efd23018d458f4e2ff3645",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "capacitor_ripple_v": 0.2773013127282553,
+        "current_ripple_a": 4.284401172999061,
+        "input_w": 522.8138300517861,
+        "loss_w": 10.490188116606598,
+        "output_w": 512.3236419351816,
+        "periodic_state_error": 1.4210854715202004e-14
+      }
+    },
+    {
+      "archive": "bidirectional-regeneration/fields.npz",
+      "case": "bidirectional-regeneration",
+      "configuration": {
+        "case": "bidirectional-regeneration",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "20bf671ee8cb9faf4a53d3cfd89c0e480def279180f77fcc4c11834fe83f6166",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "a00f26d2e5e1f2b3c403ad88141bf75fa96df0fd16190f204bde4721f739aa92",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "capacitor_ripple_v": 0.03163352301761435,
+        "current_ripple_a": 2.6191943981356633,
+        "input_w": -242.46457925081546,
+        "loss_w": 12.82442683885253,
+        "output_w": -255.2890060896687,
+        "periodic_state_error": 3.972054645195637e-15
+      }
+    },
+    {
+      "archive": "full-bridge-waveform/fields.npz",
+      "case": "full-bridge-waveform",
+      "configuration": {
+        "case": "full-bridge-waveform",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "2b859ae54c2774397d722af12edbc2f14ebc24c3259ffc762d0a2606c72aa8e3",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "961b7f7ba8ee573275f4ec6610f236f56ef36fd0e1970d2889cb5ebeaae70b07",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "capacitor_ripple_v": 0.03610794415121532,
+        "current_ripple_a": 2.7285981349670205,
+        "input_w": 94.80504074456559,
+        "loss_w": 1.3146149019742177,
+        "output_w": 93.49042584259118,
+        "periodic_state_error": 3.580361673049448e-15
+      }
+    },
+    {
+      "archive": "diode-discontinuous/fields.npz",
+      "case": "diode-discontinuous",
+      "configuration": {
+        "case": "diode-discontinuous",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "7684b4a37e4cee0f0ceab1ff36700fa9d3c3067ec71acc73acc81aaa10fd72cc",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "b563c40134bda215383fd2a70e41b74673ff7f4fde35f2dc26d154adabf47211",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "energy_residual_j": 1.2299189444675562e-15,
+        "max_blocked_fraction": 0.7005042540394616,
+        "minimum_boundary_current_a": 0.0
+      }
+    },
+    {
+      "archive": "switched-average-convergence/fields.npz",
+      "case": "switched-average-convergence",
+      "configuration": {
+        "case": "switched-average-convergence",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "2d527eec9e1bc2829b8f175ec47bf9a8cfef666453beb8d8e2ac1c1e47fd9b6b",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "cf5912e84f0301e79c8bdb6fc856645fffb7f7c6f2970609dd80283cc2f31830",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "coarse_current_error_a": 3.15776156620322,
+        "fine_current_error_a": 0.391758806367112,
+        "fine_voltage_error_v": 0.01911799826814331
+      }
+    },
+    {
+      "archive": "esr-mode-averaging/fields.npz",
+      "case": "esr-mode-averaging",
+      "configuration": {
+        "case": "esr-mode-averaging",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "1d16fa04e72f4e39d95c80a747d7674e48a4141465323ce7897834c8bc1537b6",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "9bd006927283b36c0caed4fe477da8499a1e51af300ecc360cfbe305d334dc3e",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "max_state_difference": 7.183132306790875
+      }
+    },
+    {
+      "archive": "sinusoidal-inverter/fields.npz",
+      "case": "sinusoidal-inverter",
+      "configuration": {
+        "case": "sinusoidal-inverter",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "36df7b69b894a75c855c5071f79165aaf4035019f6d1cd237145db3be1ab2246",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "8aab0d637141c978f3765a0127a53bfacbb176ba347dd85eff2d5fb381a2cd44",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "energy_residual_j": -4.83554168928535e-17,
+        "fundamental_peak_v": 23.936683064921855,
+        "low_order_thd": 6.904644554077768e-05
+      }
+    },
+    {
+      "archive": "switching-loss-estimate/fields.npz",
+      "case": "switching-loss-estimate",
+      "configuration": {
+        "case": "switching-loss-estimate",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "b17159e2fdb237c00e7703fb9806f303808e14c48a4a0e2afc71bd028e0d6635",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "c7682bb84e323ccb3d149ae994dc8de1b882fd2418053a81a77321a271c176ad",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "loss_20khz_at_20a_w": 1.409216
+      }
+    },
+    {
+      "archive": "duty-frequency-response/fields.npz",
+      "case": "duty-frequency-response",
+      "configuration": {
+        "case": "duty-frequency-response",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "18909d17d82d2daecb7bab95755c1f2b078b41a3fdd8820b4409a394409649cb",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "cab83709100548c9e3a3b3810f4d8cf4379e488f458bbc54eea0b54eddd1718a",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "boost_rhp_zero_hz": 1562.6121685386088
+      }
+    },
+    {
+      "archive": "discrete-lqr/fields.npz",
+      "case": "discrete-lqr",
+      "configuration": {
+        "case": "discrete-lqr",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "c4e8578b48b17355d2bf61dd2b5cfedf38cf35d1ccceec639a901f2e04b57d9d",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "6bd405b11de6d7e8ccd2f136925154b557f231dcceefee07a74f26236a4024ec",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_voltage_error_v": -2.529483493455344e-63,
+        "spectral_radius": 0.6962405892630522
+      }
+    },
+    {
+      "archive": "voltage-only-observer/fields.npz",
+      "case": "voltage-only-observer",
+      "configuration": {
+        "case": "voltage-only-observer",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "7943e55a6c682e5e8a9ac52625349bc91afc89dc78f5d5b4dd31d341f2ab579a",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "e0cd2c51783e0f777ee433ce4dee1c1fee8c896c56e93f4ec715cb2fcfb3b648",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "terminal_current_rmse_a": 0.0010425361641873503
+      }
+    },
+    {
+      "archive": "deadtime-voltage-error/fields.npz",
+      "case": "deadtime-voltage-error",
+      "configuration": {
+        "case": "deadtime-voltage-error",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "c6f800273f205396d2ffe080fd71fe2ac72fba2d22df5b45b97f7244191748d0",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "1333b2c3a177fc988465c1a1ccfad9266908128dcbf38b126b17a10f831f3c81",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "peak_error_v": 1.9200000000000002
+      }
+    },
+    {
+      "archive": "hil-deadline-overrun/fields.npz",
+      "case": "hil-deadline-overrun",
+      "configuration": {
+        "case": "hil-deadline-overrun",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "894ea1a39c914a13aff1092accf76460058f44fac2be7d62706b059719ba82c5",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "7e5c6ff732cdc7a1239c733b1caf5b4dd960f885143d8f93b8a87c126eee6e3b",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "maximum_lateness_us": 240.0,
+        "missed_deadlines": 15
+      }
+    },
+    {
+      "archive": "hil-wire-replay/fields.npz",
+      "case": "hil-wire-replay",
+      "configuration": {
+        "case": "hil-wire-replay",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "f7f53a3b8c6fbe18b98c1a1a6851f0ba13f0b9bad432f28fad132bd1a3cd4947",
+        "git_dirty": false,
+        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "4e7787165c78e53d5f7fdc2e8a4a0f63ef630ab2aff8a7b449cecf18c9e1a9d4",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "accepted": 150,
+        "maximum_replay_error": 0.0,
+        "rejected": 49
+      }
+    }
+  ],
+  "schema_version": 1
+}
