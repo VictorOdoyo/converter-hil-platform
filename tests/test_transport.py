@@ -19,3 +19,15 @@ def test_wire_encoding():
     assert data[:6] == b"HIL1\x01\x01"
     assert struct.unpack("<I", data[-4:])[0] == zlib.crc32(data[:-4])
     assert len(data) == 40
+
+
+def test_wire_roundtrip_corruption():
+    frame = m.Frame(2, 2**32 - 1, 50000, (0.2, 0.7))
+    data = m.encode(frame)
+    assert m.decode(data) == frame
+    bad = bytearray(data)
+    bad[22] ^= 1
+    with pytest.raises(ValueError, match="CRC"):
+        m.decode(bytes(bad))
+    with pytest.raises(ValueError):
+        m.decode(data + b"x")

@@ -30,3 +30,17 @@ def encode(frame):
         "<4sBBIQH", b"HIL1", 1, frame.kind, frame.sequence, frame.tick_ns, len(frame.values)
     ) + struct.pack("<" + "d" * len(frame.values), *frame.values)
     return body + struct.pack("<I", zlib.crc32(body))
+
+
+def decode(packet):
+    import struct
+    import zlib
+
+    if not isinstance(packet, bytes) or len(packet) < 32:
+        raise ValueError("complete immutable HIL packet required")
+    magic, version, kind, seq, tick, count = struct.unpack("<4sBBIQH", packet[:20])
+    if magic != b"HIL1" or version != 1 or not 1 <= count <= 16 or len(packet) != 24 + 8 * count:
+        raise ValueError("unsupported HIL header or length")
+    if struct.unpack("<I", packet[-4:])[0] != zlib.crc32(packet[:-4]):
+        raise ValueError("HIL CRC mismatch")
+    return Frame(kind, seq, tick, struct.unpack("<" + "d" * count, packet[20:-4]))
