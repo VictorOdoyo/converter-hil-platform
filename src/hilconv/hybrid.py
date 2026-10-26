@@ -59,6 +59,7 @@ def diode_advance(value, duration_s, sa, sb, model=None):
     totals = {"input_j": 0.0, "output_j": 0.0, "loss_j": 0.0}
     blocked = 0.0
     events = 0
+    trace = [(0.0, float(x[0]), float(x[1]))]
     if x[0] < -1e-10 or sa not in (0, 1) or sb not in (0, 1) or min(p.input_v, p.load_source_v) < 0:
         raise ValueError("nonnegative diode-port operating state required")
     for _ in range(64):
@@ -81,11 +82,12 @@ def diode_advance(value, duration_s, sa, sb, model=None):
                 events += 1
         x = r["state"]
         remaining -= dt
+        trace.append((duration_s - remaining, float(x[0]), float(x[1])))
         for key in totals:
             totals[key] += r[key]
     else:
         raise RuntimeError("diode event limit exceeded")
-    return {"state": x, **totals, "blocked_s": blocked, "zero_crossings": events}
+    return {"state": x, **totals, "blocked_s": blocked, "zero_crossings": events, "trace": np.array(trace)}
 
 
 def diode_cycle(value, period_s, topology, duty, model=None):

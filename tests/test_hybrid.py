@@ -60,3 +60,11 @@ def test_boost_idle_restarts_with_energy_continuity():
     assert energy(r["state"], p) - energy(x, p) == pytest.approx(
         r["input_j"] - r["output_j"] - r["loss_j"], abs=1e-9
     )
+
+
+def test_zero_event_trace_includes_blocked_tail():
+    r = m.diode_advance([1, 24], 50e-6, 0, 1)
+    assert r["trace"].shape == (3, 3)
+    assert 0 < r["trace"][1, 0] < 50e-6
+    assert r["trace"][1, 1] == 0 and r["trace"][-1, 1] == 0
+    assert r["trace"][-1, 0] == pytest.approx(50e-6)
