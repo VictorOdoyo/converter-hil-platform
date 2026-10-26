@@ -93,3 +93,9 @@ def test_thermal_capacity_identification():
 def test_relative_aging_factor():
     assert m.arrhenius(25) == pytest.approx(1)
     assert m.arrhenius(125) > 10
+
+
+def test_thermal_feedback_threshold():
+    p = m.Thermal()
+    assert max(m.thermal_poles(0, p).real) < 0
+    assert max(m.thermal_poles(1.1 / p.total_resistance, p).real) > 0

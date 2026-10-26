@@ -305,3 +305,11 @@ def arrhenius(temperature_c, reference_c=25, activation_ev=0.3):
     if np.any(abs(exponent) > 700):
         raise ValueError("temperature acceleration exceeds numerical range")
     return np.exp(exponent)
+
+
+def thermal_poles(power_slope_w_k=0, model=None):
+    p = Thermal() if model is None else model
+    slope = float(finite(power_slope_w_k, real=True))
+    cj, cc, rj, ra = p.junction_capacity_j_k, p.case_capacity_j_k, p.junction_case_k_w, p.case_ambient_k_w
+    a = np.array([[(slope - 1 / rj) / cj, 1 / (rj * cj)], [1 / (rj * cc), -(1 / rj + 1 / ra) / cc]])
+    return np.linalg.eigvals(a)
