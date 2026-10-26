@@ -131,3 +131,7 @@ def bias(scale=1, seed=42):
 
 def delay(scale=1, seed=42):
     return solve("delayed-measurement", scale, seed, {"measurement_delay": 3}, [])
+
+
+def loss(scale=1, seed=42):
+    return solve("hil-packet-loss", scale, seed, {"drop_every": 3}, [])
