@@ -56,3 +56,10 @@ def test_inverter():
 def test_loss_estimate():
     r = m.loss_estimate()
     assert np.allclose(r["arrays"]["loss80_w"], 4 * r["arrays"]["loss20_w"])
+
+
+def test_dcm_plot_shows_actual_conduction_pulses():
+    r = m.dcm()
+    assert max(r["arrays"]["pulse_current_a"]) > 0.5
+    assert min(r["arrays"]["pulse_current_a"]) == 0
+    assert any(p["x"] == "pulse_time_us" for p in r["plots"])

@@ -94,8 +94,11 @@ def dcm(scale=1, seed=42):
     states = [x.copy()]
     blocked = []
     energy = []
-    for _ in range(120):
+    pulses = []
+    for index in range(120):
         r = diode_cycle(x, period, "buck", 0.15, p)
+        if index >= 117:
+            pulses.extend(((index - 117) * period + row[0], row[1], row[2]) for row in r["trace"][1:])
         x = r["state"]
         states.append(x.copy())
         blocked.append(r["blocked_s"] / period)
@@ -103,6 +106,7 @@ def dcm(scale=1, seed=42):
     states = np.array(states)
     t = np.arange(len(states)) * period * 1000
     fraction = np.r_[blocked, blocked[-1]]
+    pulse = np.array(pulses)
     residual = circuit.energy(x, p) - circuit.energy(states[0], p) - sum(energy)
     return make(
         "diode-discontinuous",
@@ -112,8 +116,22 @@ def dcm(scale=1, seed=42):
             "minimum_boundary_current_a": float(min(states[:, 0])),
             "energy_residual_j": float(residual),
         },
-        {"time_ms": t, "current_a": states[:, 0], "capacitor_v": states[:, 1], "blocked_fraction": fraction},
+        {
+            "time_ms": t,
+            "current_a": states[:, 0],
+            "capacitor_v": states[:, 1],
+            "blocked_fraction": fraction,
+            "pulse_time_us": pulse[:, 0] * 1e6,
+            "pulse_current_a": pulse[:, 1],
+        },
         [
+            curve(
+                "Last three actual current pulses",
+                "pulse_time_us",
+                [("pulse_current_a", "Inductor current")],
+                "Time (us)",
+                "Current (A)",
+            ),
             curve(
                 "Diode-constrained current",
                 "time_ms",
