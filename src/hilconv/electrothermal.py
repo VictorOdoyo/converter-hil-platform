@@ -52,3 +52,10 @@ def resistance(junction_c, device=None):
     if np.any(factor <= 0):
         raise ValueError("temperature lies outside positive resistance model range")
     return p.resistance_25_ohm * factor
+
+
+def conduction_loss(rms_current_a, junction_c, device=None):
+    current = finite(rms_current_a, real=True)
+    if np.any(current < 0):
+        raise ValueError("nonnegative RMS current required")
+    return current**2 * resistance(junction_c, device)

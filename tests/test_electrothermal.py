@@ -18,3 +18,8 @@ def test_thermal_parameters():
 def test_resistance_temperature_law():
     assert m.resistance(25) == pytest.approx(0.02)
     assert m.resistance(125) == pytest.approx(0.028)
+
+
+def test_rms_conduction():
+    assert m.conduction_loss(10, 25) == pytest.approx(2)
+    assert m.conduction_loss(20, 25) == pytest.approx(8)
