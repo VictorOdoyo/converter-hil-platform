@@ -69,3 +69,9 @@ def test_coupled_quasistatic_heating():
     assert r["temperatures_c"][-1, 0] > 25
     assert max(abs(r["thermal_residual_j"])) < 1e-8
     assert r["output_v"][-1] < r["output_v"][0]
+
+
+def test_cooling_time_constant():
+    t = np.linspace(0, 50, 101)
+    r = m.cooling_fit(t, 25 + 40 * np.exp(-t / 12))
+    assert r["time_constant_s"] == pytest.approx(12)

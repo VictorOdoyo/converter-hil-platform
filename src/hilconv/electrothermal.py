@@ -259,3 +259,17 @@ def simulate(
         "input_heat_j": np.array(input_heat),
         "ambient_heat_j": np.array(ambient_heat),
     }
+
+
+def cooling_fit(time_s, temperature_c, ambient_c=25):
+    from .core import timebase
+
+    t = timebase(time_s)
+    temperature = finite(temperature_c, real=True, ndim=1)
+    excess = temperature - float(finite(ambient_c, real=True))
+    if t.shape != temperature.shape or np.any(excess <= 0):
+        raise ValueError("aligned temperatures strictly above ambient required")
+    slope, intercept = np.polyfit(t - t[0], np.log(excess), 1)
+    if slope >= 0:
+        raise ValueError("decaying thermal transient required")
+    return {"time_constant_s": float(-1 / slope), "initial_excess_c": float(np.exp(intercept))}
