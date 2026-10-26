@@ -26,3 +26,12 @@ def test_pipeline_transport_timing():
     log = r["packet_log"]
     assert np.all(log[:, 1] >= log[:, 0])
     assert r["accepted_packets"] > 0
+
+
+def test_load_step_recovery_and_energy():
+    from hilconv.faults import Fault
+
+    r = m.simulate(m.Config(duration_s=0.03), faults=[Fault(0.015013, "load_ohm", 3)])
+    assert abs(r["output_v"][-1] - 24) < 1
+    assert max(abs(r["balance_j"])) < 1e-8
+    assert 0.015013 in r["ripple_time_s"]
