@@ -64,3 +64,20 @@ def test_exact_vs_adaptive():
         a = m.advance([3, 20], 0.0003, sa, sb, p)["state"]
         b = m.reference_step([3, 20], 0.0003, sa, sb, p)
         assert np.allclose(a, b, rtol=1e-9, atol=1e-9)
+
+
+def test_random_signed_power_identities():
+    rng = np.random.default_rng(291)
+    for _ in range(100):
+        p = m.Circuit(
+            load_source_v=float(rng.uniform(0, 50)),
+            input_v=float(rng.uniform(10, 80)),
+            load_ohm=float(rng.uniform(0.1, 100)),
+        )
+        x = rng.uniform([-20, -40], [20, 80])
+        sa = float(rng.choice([-1, 0, 1]))
+        sb = float(rng.choice([0, 1]))
+        derivative = m.rhs(x, sa, sb, p)
+        power = m.power(x, sa, sb, p)
+        rate = np.array([p.inductance_h * x[0], p.capacitance_f * x[1]]) @ derivative
+        assert rate == pytest.approx(power["input_w"] - power["output_w"] - power["loss_w"], abs=1e-9)
