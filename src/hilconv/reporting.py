@@ -304,7 +304,7 @@ def write_report(result, directory):
     title = escape(result["name"])
     source = result["provenance"]
     document = f"""<!doctype html><html lang="en"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Radar Perception Stack</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Converter HIL Platform</title>
 <style>body{{font:16px system-ui;max-width:1300px;margin:3rem auto;padding:0 1rem;color:#172033}}
 img{{width:100%;height:auto}}table{{border-collapse:collapse;width:100%}}td,th{{padding:.55rem;border-bottom:1px solid #dce1ea;text-align:left}}
 code{{overflow-wrap:anywhere}}a{{color:#164ac4}}</style>

@@ -123,3 +123,9 @@ def test_report_verification_detects_changed_tables_and_incomplete_manifests(tmp
     (tmp_path / "manifest.json").write_text(json.dumps({"fields.npz": "0" * 64}), encoding="utf-8")
     with pytest.raises(ValueError, match="complete"):
         m.verify_report(tmp_path)
+
+
+def test_report_names_actual_project(tmp_path):
+    p = m.write_report(_example(), tmp_path)
+    assert "Converter HIL Platform" in p.read_text()
+    assert "Radar Perception" not in p.read_text()
