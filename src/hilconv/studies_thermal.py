@@ -62,3 +62,7 @@ def transient(name, scale, seed, **changes):
 
 def nominal(scale=1, seed=42):
     return transient("electrothermal-buck", scale, seed)
+
+
+def hot(scale=1, seed=42):
+    return transient("electrothermal-hot-ambient", scale, seed, ambient_c=55)
