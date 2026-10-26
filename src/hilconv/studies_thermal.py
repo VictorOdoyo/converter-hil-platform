@@ -247,3 +247,53 @@ def cooling(scale=1, seed=42):
             "One-lump exponential identification benchmark; the two-node model is not mislabeled as single-exponential."
         ],
     )
+
+
+def capacities(scale=1, seed=42):
+    from .core import stream
+    from .electrothermal import Thermal, capacity_fit, thermal_step
+
+    p = Thermal()
+    rng = stream(seed, "thermal-capacity")
+    state = np.array([25.0, 25.0])
+    delta = []
+    energy = []
+    states = [state.copy()]
+    for _ in range(100 * scale):
+        power = float(rng.uniform(0, 40))
+        r = thermal_step(state, power, 25, 0.2, p)
+        delta.append(r["temperatures_c"] - state)
+        energy.append(r["input_j"] - r["ambient_j"])
+        state = r["temperatures_c"]
+        states.append(state.copy())
+    fit = capacity_fit(delta, energy)
+    truth = np.array([p.junction_capacity_j_k, p.case_capacity_j_k])
+    return make(
+        "thermal-capacity-identification",
+        {"thermal_step_s": 0.2, "temperature_observations": "noise-free independent benchmark"},
+        {
+            "junction_capacity_j_k": float(fit["capacity_j_k"][0]),
+            "case_capacity_j_k": float(fit["capacity_j_k"][1]),
+            "max_fit_residual_j": float(max(abs(fit["residual_j"]))),
+        },
+        {
+            "node_index": np.arange(2),
+            "true_capacity_j_k": truth,
+            "estimated_capacity_j_k": fit["capacity_j_k"],
+            "delta_temperature_c": np.array(delta),
+            "net_energy_j": np.array(energy),
+        },
+        [
+            curve(
+                "Independent node heat capacities",
+                "node_index",
+                [("true_capacity_j_k", "Reference"), ("estimated_capacity_j_k", "Fitted")],
+                "Node index (junction=0, case=1)",
+                "Heat capacity (J/K)",
+                style="o",
+            )
+        ],
+        assumptions=[
+            "Both node temperatures and net heat flux are supplied. No capacity inference from one sensor or unknown losses is claimed."
+        ],
+    )
