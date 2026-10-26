@@ -17,3 +17,8 @@ def test_harmonic_fit():
     assert r["dc"] == pytest.approx(2)
     assert r["thd"] == pytest.approx(0.1)
     assert r["residual_rms"] < 1e-10
+
+
+def test_settling_retains_failure():
+    assert not m.settling([0, 1, 2], [0, 1, 0.5], 1, 0.1)["settled"]
+    assert m.settling([0, 1, 2], [0, 1, 1], 1, 0.1)["time_s"] == 1

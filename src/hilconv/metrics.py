@@ -38,3 +38,17 @@ def harmonics(time_s, values, fundamental_hz=50, maximum_harmonic=20):
         "fundamental_observable": bool(fundamental > 1e-12),
         "residual_rms": float(np.sqrt(np.mean((y - matrix @ coeff) ** 2))),
     }
+
+
+def settling(time_s, values, target, tolerance):
+    t = timebase(time_s)
+    y = finite(values, real=True, ndim=1)
+    tol = positive(tolerance)
+    if y.shape != t.shape:
+        raise ValueError("aligned settling samples required")
+    outside = abs(y - float(finite(target, real=True))) > tol
+    if outside[-1]:
+        return {"settled": False, "time_s": None}
+    bad = np.flatnonzero(outside)
+    index = 0 if not len(bad) else int(bad[-1] + 1)
+    return {"settled": True, "time_s": float(t[index])}
