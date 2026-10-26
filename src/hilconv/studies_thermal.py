@@ -297,3 +297,31 @@ def capacities(scale=1, seed=42):
             "Both node temperatures and net heat flux are supplied. No capacity inference from one sensor or unknown losses is claimed."
         ],
     )
+
+
+def arrhenius(scale=1, seed=42):
+    from .electrothermal import arrhenius as factor
+
+    t = np.linspace(25, 150, 101 * scale)
+    arrays = {"temperature_c": t}
+    for activation in (0.2, 0.3, 0.4):
+        arrays["factor_" + str(int(activation * 10))] = factor(t, 25, activation)
+    return make(
+        "arrhenius-temperature-sensitivity",
+        {"reference_c": 25, "activation_energies_ev": [0.2, 0.3, 0.4]},
+        {"factor_at_150c_for_03ev": float(arrays["factor_3"][-1])},
+        arrays,
+        [
+            curve(
+                "Relative Arrhenius sensitivity",
+                "temperature_c",
+                [("factor_2", "0.2 eV"), ("factor_3", "0.3 eV"), ("factor_4", "0.4 eV")],
+                "Temperature (C)",
+                "Relative acceleration factor",
+                yscale="log",
+            )
+        ],
+        assumptions=[
+            "Illustrative activation energies; no absolute lifetime, cycling fatigue or device qualification prediction."
+        ],
+    )

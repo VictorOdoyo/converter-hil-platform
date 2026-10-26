@@ -46,3 +46,7 @@ def test_cooling():
 def test_capacities():
     s = m.capacities()["summary"]
     assert abs(s["junction_capacity_j_k"] - 0.5) < 1e-7 and abs(s["case_capacity_j_k"] - 10) < 1e-7
+
+
+def test_arrhenius():
+    assert m.arrhenius()["summary"]["factor_at_150c_for_03ev"] > 10
