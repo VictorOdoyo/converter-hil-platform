@@ -130,3 +130,14 @@ def lqr(a, b, state_cost, input_cost):
     p = solve_discrete_are(a, b, q, r)
     gain = np.linalg.solve(r + b.T @ p @ b, b.T @ p @ a)
     return {"gain": gain, "riccati": p, "closed_loop_poles": np.linalg.eigvals(a - b @ gain)}
+
+
+def deadtime_error(current_a, input_v, deadtime_s, switching_hz, bridge_legs=2):
+    current = finite(current_a, real=True)
+    vin = positive(input_v)
+    dead = positive(deadtime_s, allow_zero=True)
+    frequency = positive(switching_hz)
+    integer(bridge_legs)
+    if dead * frequency >= 0.5:
+        raise ValueError("deadtime shorter than half a carrier period required")
+    return -bridge_legs * vin * dead * frequency * np.sign(current)

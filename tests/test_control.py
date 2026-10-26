@@ -54,3 +54,7 @@ def test_lqr_stability():
     a, b = m.discrete_model(lin["a"], lin["b"], 50e-6)
     result = m.lqr(a, b, np.diag([0.01, 1]), np.array([[20.0]]))
     assert max(abs(result["closed_loop_poles"])) < 1
+
+
+def test_deadtime_polarity():
+    assert np.allclose(m.deadtime_error([-2, 0, 2], 48, 1e-6, 20000), [1.92, 0, -1.92])
