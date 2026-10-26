@@ -1,0 +1,5 @@
+{
+  "corrupt_every": 4,
+  "duration_s": 0.01,
+  "jitter_ns": 20000
+}

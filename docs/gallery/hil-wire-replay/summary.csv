@@ -1,0 +1,4 @@
+metric,value
+accepted,150
+maximum_replay_error,0.0
+rejected,49
