@@ -103,3 +103,7 @@ def nominal(scale=1, seed=42):
 
 def averaged(scale=1, seed=42):
     return solve("buck-averaged", scale, seed, {"averaged": True}, [])
+
+
+def load_step(scale=1, seed=42):
+    return solve("buck-load-step", scale, seed, {}, [[0.020013, "load_ohm", 3]])
