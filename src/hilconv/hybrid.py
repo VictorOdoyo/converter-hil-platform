@@ -86,3 +86,18 @@ def diode_advance(value, duration_s, sa, sb, model=None):
     else:
         raise RuntimeError("diode event limit exceeded")
     return {"state": x, **totals, "blocked_s": blocked, "zero_crossings": events}
+
+
+def diode_cycle(value, period_s, topology, duty, model=None):
+    from .pwm import segments
+
+    if topology not in ("buck", "boost"):
+        raise ValueError("unidirectional buck or boost required")
+    x = state(value)
+    totals = {"input_j": 0.0, "output_j": 0.0, "loss_j": 0.0, "blocked_s": 0.0, "zero_crossings": 0}
+    for lo, hi, sa, sb in segments(topology, duty):
+        r = diode_advance(x, (hi - lo) * positive(period_s), sa, sb, model)
+        x = r["state"]
+        for key in totals:
+            totals[key] += r[key]
+    return {"state": x, **totals}

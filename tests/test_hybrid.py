@@ -33,3 +33,10 @@ def test_dcm_balance_no_negative_current():
     assert energy(r["state"], p) - energy(x, p) == pytest.approx(
         r["input_j"] - r["output_j"] - r["loss_j"], abs=1e-12
     )
+
+
+def test_light_load_dcm_cycle():
+    p = m.Circuit(load_ohm=100)
+    r = m.diode_cycle([0, 24], 50e-6, "buck", 0.1, p)
+    assert r["state"][0] >= 0
+    assert r["blocked_s"] > 0
