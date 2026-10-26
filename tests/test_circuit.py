@@ -56,3 +56,11 @@ def test_exact_interval_energy():
     result = m.advance(x, 0.0001, 1, 1, p)
     change = m.energy(result["state"], p) - m.energy(x, p)
     assert change == pytest.approx(result["input_j"] - result["output_j"] - result["loss_j"], abs=2e-13)
+
+
+def test_exact_vs_adaptive():
+    p = m.Circuit(load_source_v=24)
+    for sa, sb in [(1, 0), (0, 1), (-1, 1), (1, 1)]:
+        a = m.advance([3, 20], 0.0003, sa, sb, p)["state"]
+        b = m.reference_step([3, 20], 0.0003, sa, sb, p)
+        assert np.allclose(a, b, rtol=1e-9, atol=1e-9)

@@ -139,3 +139,14 @@ def advance(value, dt_s, sa, sb, model=None):
         "output_j": float(energies[1]),
         "loss_j": float(energies[2]),
     }
+
+
+def reference_step(value, dt_s, sa, sb, model=None):
+    from scipy.integrate import solve_ivp
+
+    p = Circuit() if model is None else model
+    duration = positive(dt_s)
+    result = solve_ivp(lambda _, x: rhs(x, sa, sb, p), (0, duration), state(value), rtol=1e-11, atol=1e-12)
+    if not result.success:
+        raise RuntimeError(result.message)
+    return result.y[:, -1]
