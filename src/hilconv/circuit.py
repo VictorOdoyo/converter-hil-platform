@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+import numpy as np
+
 from .core import finite, positive
 
 
@@ -47,3 +49,16 @@ def ports(value, source_coefficient, output_coefficient, model=None):
         "capacitor_a": float(cap),
         "input_a": float(sa * current),
     }
+
+
+def rhs(value, source_coefficient, output_coefficient, model=None):
+    p = Circuit() if model is None else model
+    x = state(value)
+    r = ports(x, source_coefficient, output_coefficient, p)
+    return np.array(
+        [
+            (source_coefficient * p.input_v - output_coefficient * r["output_v"] - p.inductor_ohm * x[0])
+            / p.inductance_h,
+            r["capacitor_a"] / p.capacitance_f,
+        ]
+    )
