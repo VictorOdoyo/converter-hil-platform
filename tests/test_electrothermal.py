@@ -88,3 +88,8 @@ def test_thermal_capacity_identification():
     assert np.allclose(m.capacity_fit(delta, delta @ truth)["capacity_j_k"], truth)
     with pytest.raises(ValueError):
         m.capacity_fit(np.ones((4, 2)), np.ones(4))
+
+
+def test_relative_aging_factor():
+    assert m.arrhenius(25) == pytest.approx(1)
+    assert m.arrhenius(125) > 10

@@ -293,3 +293,15 @@ def capacity_fit(delta_temperatures, input_minus_ambient_j):
     if np.any(capacity <= 0):
         raise ValueError("positive thermal capacities required")
     return {"capacity_j_k": capacity, "residual_j": energy - delta @ capacity}
+
+
+def arrhenius(temperature_c, reference_c=25, activation_ev=0.3):
+    temperature = finite(temperature_c, real=True) + 273.15
+    reference = float(finite(reference_c, real=True)) + 273.15
+    activation = positive(activation_ev)
+    if np.any(temperature <= 0) or reference <= 0:
+        raise ValueError("positive Kelvin temperatures required")
+    exponent = activation / 8.617333262e-5 * (1 / reference - 1 / temperature)
+    if np.any(abs(exponent) > 700):
+        raise ValueError("temperature acceleration exceeds numerical range")
+    return np.exp(exponent)
