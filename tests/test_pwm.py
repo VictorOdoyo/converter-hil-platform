@@ -55,3 +55,9 @@ def test_ideal_steady_conversion_ratios():
     assert m.equilibrium("buck", 0.4, model=p)[1] == pytest.approx(0.4 * 48)
     assert m.equilibrium("boost", 0.4, model=p)[1] == pytest.approx(48 / 0.6)
     assert m.equilibrium("inverter", 0.75, 0.25, p)[1] == pytest.approx(24)
+
+
+def test_switched_periodic_fixed_point():
+    x = m.periodic_state(50e-6, "boost", 0.4)
+    y = m.cycle(x, 50e-6, "boost", 0.4)["state"]
+    assert np.allclose(x, y, atol=1e-10)

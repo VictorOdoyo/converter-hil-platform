@@ -90,3 +90,18 @@ def equilibrium(topology, duty_a, duty_b=0, model=None):
     if np.linalg.cond(a[:2, :2]) > 1e12:
         raise ValueError("finite nonsingular operating point required")
     return np.linalg.solve(a[:2, :2], -a[:2, 2])
+
+
+def periodic_state(period_s, topology, duty_a, duty_b=0, model=None):
+    from scipy.linalg import expm
+
+    from .circuit import generator
+
+    period = positive(period_s)
+    mapping = np.eye(3)
+    for lo, hi, sa, sb in segments(topology, duty_a, duty_b):
+        mapping = expm(generator(sa, sb, model) * (hi - lo) * period) @ mapping
+    matrix = np.eye(2) - mapping[:2, :2]
+    if np.linalg.cond(matrix) > 1e12:
+        raise ValueError("nonsingular periodic operating point required")
+    return np.linalg.solve(matrix, mapping[:2, 2])
