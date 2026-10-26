@@ -282,3 +282,14 @@ def junction_from_case(case_c, power_w, model=None):
     if np.any(case <= -273.15):
         raise ValueError("physical measured case temperature required")
     return case + power * p.junction_case_k_w
+
+
+def capacity_fit(delta_temperatures, input_minus_ambient_j):
+    delta = finite(delta_temperatures, real=True, ndim=2)
+    energy = finite(input_minus_ambient_j, real=True, ndim=1)
+    if delta.shape != (len(energy), 2) or len(energy) < 3 or np.linalg.cond(delta) > 1e8:
+        raise ValueError("independently excited junction and case energy observations required")
+    capacity = np.linalg.lstsq(delta, energy, rcond=None)[0]
+    if np.any(capacity <= 0):
+        raise ValueError("positive thermal capacities required")
+    return {"capacity_j_k": capacity, "residual_j": energy - delta @ capacity}

@@ -80,3 +80,11 @@ def test_cooling_time_constant():
 def test_steady_case_inference():
     temperature = m.steady_temperatures(12)
     assert m.junction_from_case(temperature[1], 12) == pytest.approx(temperature[0])
+
+
+def test_thermal_capacity_identification():
+    delta = np.array([[1.0, 0.1], [0.3, 0.5], [0.7, -0.1], [0.1, 0.8]])
+    truth = np.array([0.5, 10.0])
+    assert np.allclose(m.capacity_fit(delta, delta @ truth)["capacity_j_k"], truth)
+    with pytest.raises(ValueError):
+        m.capacity_fit(np.ones((4, 2)), np.ones(4))
