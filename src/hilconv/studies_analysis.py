@@ -222,3 +222,46 @@ def deadline(scale=1, seed=42):
         ],
         assumptions=["All timing is virtual. This is not a host benchmark or hard-real-time certification."],
     )
+
+
+def wire_replay(scale=1, seed=42):
+    from . import bench, transport
+
+    r = bench.simulate(bench.Config(duration_s=0.01, corrupt_every=4, jitter_ns=20000, seed=seed))
+    ticks = np.rint(r["time_s"][:-1] * 1e9).astype(np.int64)
+    replay = transport.replay(ticks, r["received_packet_bytes"], r["packet_log"][:, 1])
+    error = replay["duty"] - r["duty"][:-1]
+    return make(
+        "hil-wire-replay",
+        {"duration_s": 0.01, "corrupt_every": 4, "jitter_ns": 20000},
+        {
+            "maximum_replay_error": float(max(abs(error))),
+            "accepted": replay["accepted"],
+            "rejected": replay["rejected"],
+        },
+        {
+            "time_ms": ticks / 1e6,
+            "live_duty": r["duty"][:-1],
+            "replayed_duty": replay["duty"],
+            "error": error,
+            "received_packet_bytes": r["received_packet_bytes"],
+            "packet_log": r["packet_log"],
+        },
+        [
+            curve(
+                "CRC-gated actuator command",
+                "time_ms",
+                [("live_duty", "Original"), ("replayed_duty", "Raw-wire replay")],
+                "Time (ms)",
+                "Duty fraction",
+            ),
+            curve(
+                "Exact deterministic agreement",
+                "time_ms",
+                [("error", "Replay minus original")],
+                "Time (ms)",
+                "Duty difference",
+                ylim=(-1e-12, 1e-12),
+            ),
+        ],
+    )

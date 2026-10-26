@@ -27,3 +27,9 @@ def test_deadtime():
 def test_deadline():
     r = m.deadline()
     assert r["summary"]["missed_deadlines"] > 6
+
+
+def test_wire_replay():
+    r = m.wire_replay()
+    assert r["summary"]["maximum_replay_error"] == 0
+    assert r["summary"]["rejected"] > 10
