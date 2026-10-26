@@ -40,3 +40,60 @@ def frequency(scale=1, seed=42):
             ),
         ],
     )
+
+
+def regulator(scale=1, seed=42):
+    from . import control
+
+    lin = control.linearize("buck", 0.5)
+    period = 50e-6
+    a, b = control.discrete_model(lin["a"], lin["b"], period)
+    design = control.lqr(a, b, np.diag([0.01, 1]), np.array([[20.0]]))
+    t = np.arange(401) * period
+    x = np.array([0.0, 2.0])
+    uncontrolled = x.copy()
+    states = [x.copy()]
+    opened = [x.copy()]
+    commands = []
+    for _ in t[:-1]:
+        u = float((-design["gain"] @ x).item())
+        commands.append(u)
+        x = a @ x + b[:, 0] * u
+        uncontrolled = a @ uncontrolled
+        states.append(x.copy())
+        opened.append(uncontrolled.copy())
+    states = np.array(states)
+    opened = np.array(opened)
+    return make(
+        "discrete-lqr",
+        {"period_s": period, "gain": design["gain"].tolist(), "operating_state": lin["state"].tolist()},
+        {
+            "spectral_radius": float(max(abs(design["closed_loop_poles"]))),
+            "final_voltage_error_v": float(states[-1, 1]),
+        },
+        {
+            "time_ms": t * 1000,
+            "closed_v": states[:, 1],
+            "open_v": opened[:, 1],
+            "duty_perturbation": np.r_[commands, commands[-1]],
+        },
+        [
+            curve(
+                "Small-signal voltage perturbation",
+                "time_ms",
+                [("closed_v", "LQR"), ("open_v", "Open loop")],
+                "Time (ms)",
+                "Voltage perturbation (V)",
+            ),
+            curve(
+                "LQR duty perturbation",
+                "time_ms",
+                [("duty_perturbation", "State feedback")],
+                "Time (ms)",
+                "Duty deviation",
+            ),
+        ],
+        assumptions=[
+            "Linear perturbation benchmark, no saturation and no hardware deployment. Full state is intentionally available in this regulator design bench."
+        ],
+    )
