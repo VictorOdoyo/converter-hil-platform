@@ -86,3 +86,26 @@ def generator(sa, sb, model=None):
     zero = rhs([0, 0], sa, sb, p)
     matrix = np.column_stack([rhs([1, 0], sa, sb, p) - zero, rhs([0, 1], sa, sb, p) - zero, zero])
     return np.vstack([matrix, np.zeros(3)])
+
+
+def power_forms(sa, sb, model=None):
+    p = Circuit() if model is None else model
+    den = 1 + p.capacitor_esr_ohm / p.load_ohm
+    current = np.array([1.0, 0, 0])
+    constant = np.array([0.0, 0, 1])
+    voltage = (
+        np.array([p.capacitor_esr_ohm * sb, 1, p.capacitor_esr_ohm * p.load_source_v / p.load_ohm]) / den
+    )
+    load = (voltage - p.load_source_v * constant) / p.load_ohm
+    cap = sb * current - load
+
+    def form(a, b):
+        return (np.outer(a, b) + np.outer(b, a)) / 2
+
+    return np.array(
+        [
+            form(p.input_v * sa * constant, current),
+            form(voltage, load),
+            p.inductor_ohm * form(current, current) + p.capacitor_esr_ohm * form(cap, cap),
+        ]
+    )

@@ -41,3 +41,10 @@ def test_affine_generator():
     x = np.array([2, 30, 1])
     assert np.allclose((a @ x)[:2], m.rhs(x[:2], 1, 0, p))
     assert (a @ x)[2] == 0
+
+
+def test_power_quadratics():
+    p = m.Circuit(load_source_v=24)
+    z = np.array([-3, 18, 1.0])
+    actual = np.einsum("i,kij,j->k", z, m.power_forms(1, 1, p), z)
+    assert np.allclose(actual, list(m.power(z[:2], 1, 1, p).values()))
