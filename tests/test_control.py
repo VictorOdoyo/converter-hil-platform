@@ -12,3 +12,9 @@ def test_pi_backcalculation():
     assert 0 <= r["command"] <= 1
     with pytest.raises(ValueError):
         c.update(1, 0)
+
+
+def test_bumpless_pi():
+    c = m.PI(0.2, 4)
+    m.bumpless(c, 0.6, 2, 0.1)
+    assert c.update(2, 0.001, 0.1)["command"] == pytest.approx(0.6)

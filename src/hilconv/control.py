@@ -27,3 +27,13 @@ class PI:
             "integral": self.integral,
             "saturated": bool(command != raw),
         }
+
+
+def bumpless(controller, command, error=0, feedforward=0):
+    command = float(finite(command, real=True))
+    if not controller.lower <= command <= controller.upper:
+        raise ValueError("initial command inside actuator limits required")
+    controller.integral = (
+        command - controller.kp * float(finite(error, real=True)) - float(finite(feedforward, real=True))
+    )
+    return controller.integral
