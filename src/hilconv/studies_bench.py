@@ -115,3 +115,7 @@ def sag(scale=1, seed=42):
 
 def short(scale=1, seed=42):
     return solve("buck-output-short", scale, seed, {}, [[0.020013, "load_ohm", 0.2]])
+
+
+def open_load(scale=1, seed=42):
+    return solve("buck-load-open", scale, seed, {}, [[0.020013, "load_ohm", 1000000]])

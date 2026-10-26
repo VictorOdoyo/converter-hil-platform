@@ -36,3 +36,10 @@ def test_short():
     assert r["summary"]["max_energy_residual_j"] < 1e-7
     assert r["arrays"]["time_s"][-1] == 0.04
     assert np.isfinite(r["arrays"]["state"]).all()
+
+
+def test_open_load():
+    r = m.open_load()
+    assert r["summary"]["max_energy_residual_j"] < 1e-7
+    assert r["arrays"]["time_s"][-1] == 0.04
+    assert np.isfinite(r["arrays"]["state"]).all()
