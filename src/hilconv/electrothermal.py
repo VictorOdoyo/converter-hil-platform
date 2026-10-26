@@ -208,3 +208,54 @@ class ThermalLatch:
         elif not self.enabled and temp <= self.reset and time - self.changed >= self.dwell:
             self.enabled = True
         return self.enabled
+
+
+def simulate(
+    duration_s=120,
+    step_s=0.5,
+    ambient_c=25,
+    load_ohm=1,
+    switching_hz=20000,
+    shutdown=False,
+    sensor_bias_c=0,
+    thermal_model=None,
+):
+    from .circuit import Circuit
+    from .core import timeline
+
+    p = Thermal() if thermal_model is None else thermal_model
+    time = timeline(duration_s, step_s)
+    temperature = np.array([ambient_c, ambient_c], dtype=float)
+    circuit = Circuit(load_ohm=positive(load_ohm))
+    latch = ThermalLatch()
+    states = [temperature.copy()]
+    power = []
+    output = []
+    enabled = []
+    residual = [0.0]
+    total_residual = 0.0
+    input_heat = [0.0]
+    ambient_heat = [0.0]
+    for start, dt in zip(time[:-1], np.diff(time), strict=True):
+        on = latch.update(start, temperature[0] + sensor_bias_c) if shutdown else True
+        op = operating_point(temperature[0], switching_hz, 0.5 if on else 0, circuit)
+        advance = thermal_step(temperature, op["device_heat_w"], ambient_c, dt, p)
+        temperature = advance["temperatures_c"]
+        states.append(temperature.copy())
+        total_residual += advance["energy_residual_j"]
+        residual.append(total_residual)
+        input_heat.append(input_heat[-1] + advance["input_j"])
+        ambient_heat.append(ambient_heat[-1] + advance["ambient_j"])
+        power.append(op["device_heat_w"])
+        output.append(op["output_v"])
+        enabled.append(on)
+    return {
+        "time_s": time,
+        "temperatures_c": np.array(states),
+        "device_heat_w": np.r_[power, power[-1]],
+        "output_v": np.r_[output, output[-1]],
+        "enabled": np.r_[enabled, enabled[-1]],
+        "thermal_residual_j": np.array(residual),
+        "input_heat_j": np.array(input_heat),
+        "ambient_heat_j": np.array(ambient_heat),
+    }

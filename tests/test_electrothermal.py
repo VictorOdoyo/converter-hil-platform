@@ -62,3 +62,10 @@ def test_shutdown_hysteresis():
     assert latch.update(2, 60)
     with pytest.raises(ValueError):
         latch.update(1, 80)
+
+
+def test_coupled_quasistatic_heating():
+    r = m.simulate(duration_s=10, step_s=0.5)
+    assert r["temperatures_c"][-1, 0] > 25
+    assert max(abs(r["thermal_residual_j"])) < 1e-8
+    assert r["output_v"][-1] < r["output_v"][0]
