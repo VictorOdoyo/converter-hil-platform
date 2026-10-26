@@ -97,3 +97,60 @@ def regulator(scale=1, seed=42):
             "Linear perturbation benchmark, no saturation and no hardware deployment. Full state is intentionally available in this regulator design bench."
         ],
     )
+
+
+def observer(scale=1, seed=42):
+    from . import control
+    from .core import stream
+
+    lin = control.linearize("buck", 0.5)
+    period = 50e-6
+    a, b = control.discrete_model(lin["a"], lin["b"], period)
+    h = np.array([[0.0, 1.0]])
+    gain = control.observer_gain(a, h, [0.7, 0.8])
+    rng = stream(seed, "observer")
+    adc = control.ADC(14, -5, 5)
+    truth = np.array([2.0, 1.0])
+    estimate = np.zeros(2)
+    t = np.arange(401) * period
+    actual = []
+    estimated = []
+    measurements = []
+    for _ in t:
+        actual.append(truth.copy())
+        estimated.append(estimate.copy())
+        z = adc.convert(h @ truth + rng.normal(0, 0.002))["value"]
+        measurements.append(float(z[0]))
+        estimate = control.observer_step(estimate, z, [0], a, b, h, gain)
+        truth = a @ truth
+    actual = np.array(actual)
+    estimated = np.array(estimated)
+    tail = t > 0.01
+    return make(
+        "voltage-only-observer",
+        {"adc_bits": 14, "voltage_noise_std_v": 0.002, "observer_gain": gain.tolist()},
+        {"terminal_current_rmse_a": float(np.sqrt(np.mean((actual[tail, 0] - estimated[tail, 0]) ** 2)))},
+        {
+            "time_ms": t * 1000,
+            "actual_a": actual[:, 0],
+            "estimated_a": estimated[:, 0],
+            "measured_v": np.array(measurements),
+            "actual_v": actual[:, 1],
+        },
+        [
+            curve(
+                "Hidden inductor current reconstruction",
+                "time_ms",
+                [("actual_a", "Physical current"), ("estimated_a", "Voltage-only observer")],
+                "Time (ms)",
+                "Perturbation current (A)",
+            ),
+            curve(
+                "Observer input",
+                "time_ms",
+                [("measured_v", "Quantized voltage"), ("actual_v", "Physical voltage")],
+                "Time (ms)",
+                "Voltage perturbation (V)",
+            ),
+        ],
+    )
