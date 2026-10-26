@@ -107,3 +107,7 @@ def averaged(scale=1, seed=42):
 
 def load_step(scale=1, seed=42):
     return solve("buck-load-step", scale, seed, {}, [[0.020013, "load_ohm", 3]])
+
+
+def sag(scale=1, seed=42):
+    return solve("buck-input-sag", scale, seed, {}, [[0.015013, "input_v", 36]])
