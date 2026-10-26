@@ -184,7 +184,7 @@ def replay(time_ns, packet_bytes, received_ns, maximum_age_ns=200000, watchdog_n
         times.dtype.kind not in "iu"
         or times.ndim != 1
         or len(times) < 1
-        or np.any(np.diff(times) <= 0)
+        or np.any(times[1:] <= times[:-1])
         or np.any(times < 0)
     ):
         raise ValueError("strictly ordered nonnegative integer replay ticks required")
@@ -194,7 +194,7 @@ def replay(time_ns, packet_bytes, received_ns, maximum_age_ns=200000, watchdog_n
         or packets.shape[1] != 32
         or received.dtype.kind not in "iu"
         or received.shape != (len(packets),)
-        or np.any(np.diff(received) < 0)
+        or np.any(received[1:] < received[:-1])
     ):
         raise ValueError("ordered receive times and uint8 command frames required")
     if len(received) and (

@@ -106,3 +106,8 @@ def test_latch_rejects_backward_receive():
     c.output(100)
     with pytest.raises(ValueError):
         c.receive(m.encode(m.Frame(2, 0, 50, (0.5,))), 99)
+
+
+def test_unsigned_replay_clock_ordering():
+    with pytest.raises(ValueError):
+        m.replay(np.array([100, 50], np.uint64), np.empty((0, 32), np.uint8), np.array([], np.uint64))
