@@ -79,3 +79,7 @@ def regeneration(scale=1, seed=42):
         circuit.Circuit(load_source_v=24, load_ohm=0.3),
         scale,
     )
+
+
+def bridge(scale=1, seed=42):
+    return periodic("full-bridge-waveform", "inverter", 0.75, 0.25, circuit.Circuit(), scale)

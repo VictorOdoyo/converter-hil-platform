@@ -17,3 +17,9 @@ def test_regeneration():
     r = m.regeneration()
     assert r["summary"]["input_w"] < 0 and r["summary"]["output_w"] < 0
     assert r["summary"]["periodic_state_error"] < 1e-8
+
+
+def test_bridge():
+    r = m.bridge()
+    assert r["summary"]["periodic_state_error"] < 1e-8
+    assert r["summary"]["periodic_state_error"] < 1e-8
