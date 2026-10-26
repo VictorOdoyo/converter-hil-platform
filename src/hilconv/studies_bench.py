@@ -23,6 +23,8 @@ def solve(name, scale, seed, changes=None, events=(), model_changes=None):
             np.sqrt(np.mean((r["output_v"][terminal] - r["reference_v"][terminal]) ** 2))
         ),
         "peak_inductor_a": float(max(abs(r["ripple_current_a"]))),
+        "maximum_recorded_current_a": float(max(r["ripple_current_a"])),
+        "minimum_recorded_current_a": float(min(r["ripple_current_a"])),
         "max_energy_residual_j": float(max(abs(r["balance_j"]))),
         "accepted_packets": r["accepted_packets"],
         "rejected_packets": r["rejected_packets"],
@@ -92,6 +94,7 @@ def solve(name, scale, seed, changes=None, events=(), model_changes=None):
             "Ideal switches; exact held-mode circuit flows and integrated quadratic power.",
             "Cascade PI consumes quantized delayed measurements; only plant parameters see physical faults.",
             "Virtual time transport and modeled deadlines do not demonstrate hardware or host real-time performance.",
+            "Comparator limits positive on-pulse current; synchronous negative current is physically permitted. Current extrema use event samples.",
             "Resolution scale preserves the physical sampling/PWM clock; exact interval physics has no integration step size.",
         ],
     )
