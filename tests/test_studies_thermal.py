@@ -17,3 +17,9 @@ def test_shutdown():
     r = m.shutdown()
     assert r["summary"]["max_thermal_energy_residual_j"] < 1e-6
     assert r["summary"]["peak_junction_c"] > 25
+
+
+def test_bias():
+    r = m.bias()
+    assert r["summary"]["max_thermal_energy_residual_j"] < 1e-6
+    assert r["summary"]["peak_junction_c"] > 25

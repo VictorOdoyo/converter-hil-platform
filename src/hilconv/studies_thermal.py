@@ -70,3 +70,7 @@ def hot(scale=1, seed=42):
 
 def shutdown(scale=1, seed=42):
     return transient("sampled-thermal-shutdown", scale, seed, load_ohm=0.5, shutdown=True)
+
+
+def bias(scale=1, seed=42):
+    return transient("biased-junction-sensor", scale, seed, load_ohm=0.5, shutdown=True, sensor_bias_c=-15)
