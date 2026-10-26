@@ -62,3 +62,20 @@ def rhs(value, source_coefficient, output_coefficient, model=None):
             r["capacitor_a"] / p.capacitance_f,
         ]
     )
+
+
+def energy(value, model=None):
+    p = Circuit() if model is None else model
+    x = state(value)
+    return float(0.5 * p.inductance_h * x[0] ** 2 + 0.5 * p.capacitance_f * x[1] ** 2)
+
+
+def power(value, sa, sb, model=None):
+    p = Circuit() if model is None else model
+    x = state(value)
+    r = ports(x, sa, sb, p)
+    return {
+        "input_w": float(p.input_v * r["input_a"]),
+        "output_w": float(r["output_v"] * r["load_a"]),
+        "loss_w": float(p.inductor_ohm * x[0] ** 2 + p.capacitor_esr_ohm * r["capacitor_a"] ** 2),
+    }
