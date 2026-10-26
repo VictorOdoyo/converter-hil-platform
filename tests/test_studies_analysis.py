@@ -1,3 +1,5 @@
+import pytest
+
 from hilconv import studies_analysis as m
 
 
@@ -15,3 +17,8 @@ def test_regulator():
 def test_observer():
     r = m.observer()
     assert r["summary"]["terminal_current_rmse_a"] < 0.1
+
+
+def test_deadtime():
+    r = m.deadtime()
+    assert r["summary"]["peak_error_v"] == pytest.approx(1.92)

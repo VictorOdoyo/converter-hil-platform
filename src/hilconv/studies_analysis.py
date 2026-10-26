@@ -154,3 +154,36 @@ def observer(scale=1, seed=42):
             ),
         ],
     )
+
+
+def deadtime(scale=1, seed=42):
+    from .control import deadtime_error
+
+    t = np.linspace(0, 0.04, 1001 * scale)
+    current = 4 * np.sin(2 * np.pi * 50 * t)
+    error = deadtime_error(current, 48, 1e-6, 20000)
+    return make(
+        "deadtime-voltage-error",
+        {"bus_v": 48, "deadtime_s": 1e-6, "switching_hz": 20000},
+        {"peak_error_v": float(max(abs(error)))},
+        {"time_ms": t * 1000, "current_a": current, "error_v": error},
+        [
+            curve(
+                "Continuous-current commutation sign",
+                "time_ms",
+                [("current_a", "Assumed current")],
+                "Time (ms)",
+                "Current (A)",
+            ),
+            curve(
+                "Two-leg average dead-time voltage error",
+                "time_ms",
+                [("error_v", "Estimated error")],
+                "Time (ms)",
+                "Voltage error (V)",
+            ),
+        ],
+        assumptions=[
+            "Average polarity approximation with fixed current sign over commutation, not a switching transient or diode reverse-recovery solve."
+        ],
+    )
