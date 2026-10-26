@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from hilconv import bench as m
@@ -17,3 +18,11 @@ def test_integrated_buck_regulation():
     assert max(abs(r["balance_j"])) < 1e-9
     assert r["duty"][0] == 0
     assert r["accepted_packets"] > 100
+
+
+def test_pipeline_transport_timing():
+    r = m.simulate(m.Config(duration_s=0.001, latency_ns=100000))
+    assert np.all(r["duty"][:2] == 0)
+    log = r["packet_log"]
+    assert np.all(log[:, 1] >= log[:, 0])
+    assert r["accepted_packets"] > 0
