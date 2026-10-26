@@ -1,0 +1,33 @@
+{
+  "circuit": {
+    "capacitance_f": 0.00047,
+    "capacitor_esr_ohm": 0.03,
+    "inductance_h": 0.00022,
+    "inductor_ohm": 0.08,
+    "input_v": 48,
+    "load_ohm": 6,
+    "load_source_v": 0
+  },
+  "controller": {
+    "adc_bits": 12,
+    "antiwindup": true,
+    "averaged": false,
+    "blackout_s": [],
+    "corrupt_every": 0,
+    "current_limit_a": 15,
+    "drop_every": 0,
+    "duration_s": 0.04,
+    "jitter_ns": 0,
+    "latency_ns": 50000,
+    "measurement_delay": 0,
+    "pwm_counts": 1000,
+    "reference_step_s": 0.025,
+    "reference_step_v": 24,
+    "reference_v": 24,
+    "seed": 42,
+    "softstart_s": 0.003,
+    "switching_hz": 20000,
+    "voltage_bias_v": 2
+  },
+  "faults": []
+}
