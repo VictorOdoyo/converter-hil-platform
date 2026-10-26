@@ -59,3 +59,17 @@ def conduction_loss(rms_current_a, junction_c, device=None):
     if np.any(current < 0):
         raise ValueError("nonnegative RMS current required")
     return current**2 * resistance(junction_c, device)
+
+
+def switching_energy(turnon_current_a, turnoff_current_a, bus_v, junction_c, device=None):
+    p = Device() if device is None else device
+    voltage = positive(bus_v)
+    temperature = float(finite(junction_c, real=True))
+    if temperature <= -273.15:
+        raise ValueError("physical commutation temperature required")
+    factor = 1 + p.switching_temperature_coefficient_k * (temperature - 25)
+    if factor < 0:
+        raise ValueError("temperature outside switching-energy model")
+    on = p.turnon_reference_j * abs(float(finite(turnon_current_a, real=True))) / p.reference_current_a
+    off = p.turnoff_reference_j * abs(float(finite(turnoff_current_a, real=True))) / p.reference_current_a
+    return (on + off) * voltage / p.reference_voltage_v * factor

@@ -23,3 +23,8 @@ def test_resistance_temperature_law():
 def test_rms_conduction():
     assert m.conduction_loss(10, 25) == pytest.approx(2)
     assert m.conduction_loss(20, 25) == pytest.approx(8)
+
+
+def test_switching_energy_reference():
+    assert m.switching_energy(10, 10, 48, 25) == pytest.approx(35e-6)
+    assert m.switching_energy(0, 0, 48, 25) == 0
