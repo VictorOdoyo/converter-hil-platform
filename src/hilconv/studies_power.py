@@ -208,3 +208,64 @@ def esr(scale=1, seed=42):
             )
         ],
     )
+
+
+def inverter(scale=1, seed=42):
+    from .metrics import harmonics
+
+    p = circuit.Circuit()
+    period = 50e-6
+    t = np.arange(1201) * period
+    x = np.zeros(2)
+    states = [x.copy()]
+    net = 0.0
+    for time in t[:-1]:
+        duty = (1 + 0.5 * np.sin(2 * np.pi * 50 * time)) / 2
+        r = pwm.cycle(x, period, "inverter", duty, 1 - duty, p)
+        x = r["state"]
+        states.append(x.copy())
+        net += r["input_j"] - r["output_j"] - r["loss_j"]
+    states = np.array(states)
+    reference = 24 * np.sin(2 * np.pi * 50 * t)
+    valid = t >= 0.02
+    fit = harmonics(t[valid], states[valid, 1], 50, 20)
+    return make(
+        "sinusoidal-inverter",
+        {"carrier_hz": 20000, "output_hz": 50, "modulation_index": 0.5, "circuit": asdict(p)},
+        {
+            "fundamental_peak_v": float(fit["amplitude"][0]),
+            "low_order_thd": fit["thd"],
+            "energy_residual_j": circuit.energy(x, p) - net,
+        },
+        {
+            "time_ms": t * 1000,
+            "capacitor_v": states[:, 1],
+            "current_a": states[:, 0],
+            "reference_v": reference,
+            "harmonic": np.arange(1, 21),
+            "amplitude_v": fit["amplitude"],
+        },
+        [
+            curve(
+                "Filtered switched full bridge",
+                "time_ms",
+                [("capacitor_v", "Capacitor voltage"), ("reference_v", "Ideal fundamental")],
+                "Time (ms)",
+                "Voltage (V)",
+            ),
+            curve(
+                "Actual inductor current", "time_ms", [("current_a", "Inductor")], "Time (ms)", "Current (A)"
+            ),
+            curve(
+                "Low-order sampled harmonics",
+                "harmonic",
+                [("amplitude_v", "Least-squares fit")],
+                "Harmonic order",
+                "Peak voltage (V)",
+                style="o",
+            ),
+        ],
+        assumptions=[
+            "Open-loop SPWM with exact switched intervals. Harmonic fit uses carrier-boundary samples and excludes switching-band distortion."
+        ],
+    )

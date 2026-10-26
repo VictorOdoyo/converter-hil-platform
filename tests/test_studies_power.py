@@ -43,3 +43,10 @@ def test_esr():
     r = m.esr()
     assert r["summary"]["max_state_difference"] > 0.1
     assert r["arrays"]["correct_a"][0] == pytest.approx(r["arrays"]["naive_a"][0])
+
+
+def test_inverter():
+    r = m.inverter()
+    assert 22 < r["summary"]["fundamental_peak_v"] < 25
+    assert r["summary"]["low_order_thd"] < 0.05
+    assert abs(r["summary"]["energy_residual_j"]) < 1e-8
