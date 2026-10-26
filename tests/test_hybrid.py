@@ -47,3 +47,16 @@ def test_comparator_limits_on_pulse():
     assert r["limited"]
     assert r["turnoff_a"] == pytest.approx(4, abs=1e-8)
     assert 0 < r["effective_duty"] < 0.9
+
+
+def test_boost_idle_restarts_with_energy_continuity():
+    from hilconv.circuit import energy
+
+    p = m.Circuit(input_v=48, load_ohm=6)
+    x = np.array([0.0, 55.0])
+    r = m.diode_advance(x, 0.001, 1, 1, p)
+    assert r["blocked_s"] > 0 and r["blocked_s"] < 0.001
+    assert r["state"][0] > 0
+    assert energy(r["state"], p) - energy(x, p) == pytest.approx(
+        r["input_j"] - r["output_j"] - r["loss_j"], abs=1e-9
+    )
