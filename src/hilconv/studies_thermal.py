@@ -356,3 +356,33 @@ def feedback(scale=1, seed=42):
             "Local linear power slope is supplied; it is not a global runaway certification or a physical failure simulation."
         ],
     )
+
+
+def envelope(scale=1, seed=42):
+    from .electrothermal import Thermal, allowable_heat
+
+    ambient = np.linspace(0, 100, 101 * scale)
+    arrays = {"ambient_c": ambient}
+    for cooling in (1.0, 3.0, 6.0):
+        model = Thermal(case_ambient_k_w=cooling)
+        arrays["cooling_" + str(int(cooling))] = np.array(
+            [allowable_heat(100, value, model) for value in ambient]
+        )
+    return make(
+        "steady-thermal-budget",
+        {"junction_limit_c": 100, "junction_case_k_w": 0.7},
+        {"heat_budget_25c_default_w": allowable_heat(100, 25)},
+        arrays,
+        [
+            curve(
+                "Steady thermal design envelope",
+                "ambient_c",
+                [("cooling_1", "Rca=1 K/W"), ("cooling_3", "Rca=3 K/W"), ("cooling_6", "Rca=6 K/W")],
+                "Ambient (C)",
+                "Allowable constant device heat (W)",
+            )
+        ],
+        assumptions=[
+            "Declared synthetic temperature limit; no manufacturer safe-operating-area or transient current rating claim."
+        ],
+    )

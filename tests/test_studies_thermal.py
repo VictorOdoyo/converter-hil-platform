@@ -1,3 +1,5 @@
+import numpy as np
+
 from hilconv import studies_thermal as m
 
 
@@ -54,3 +56,8 @@ def test_arrhenius():
 
 def test_feedback():
     assert m.feedback()["summary"]["largest_test_pole_s_inv"] > 0
+
+
+def test_envelope():
+    r = m.envelope()
+    assert np.all(r["arrays"]["cooling_1"] >= r["arrays"]["cooling_6"])
