@@ -1,0 +1,13 @@
+{
+  "accepted_packets": 799,
+  "dropped_packets": 0,
+  "final_output_v": 24.03006824532985,
+  "limited_cycles": 0,
+  "max_energy_residual_j": 8.854028621385623e-15,
+  "maximum_recorded_current_a": 10.247195037939768,
+  "minimum_recorded_current_a": -3.838374197164001,
+  "peak_inductor_a": 10.247195037939768,
+  "rejected_packets": 0,
+  "terminal_tracking_rms_v": 0.05503564900139465,
+  "watchdog_cycles": 1
+}
