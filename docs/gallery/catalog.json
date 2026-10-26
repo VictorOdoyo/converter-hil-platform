@@ -11,7 +11,7 @@
       "provenance": {
         "configuration_sha256": "c3ac3ef85a36b8f166f320f5b11dbebc62456e6d5c3abda823a4ff5d57f72793",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -45,7 +45,7 @@
       "provenance": {
         "configuration_sha256": "f23d670dbb902b049cd6592fd0f18b70de4bc3101e31cd3b65bf2a0dd8c2aa7d",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -79,7 +79,7 @@
       "provenance": {
         "configuration_sha256": "2c4099eb713bf027aeb93728868cf2c948e2b521df3d5bc3af388894acc30f55",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -113,7 +113,7 @@
       "provenance": {
         "configuration_sha256": "5144da199b5ec2e57423f817384f7a22fd8bb1564186673c698e5364950da281",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -147,7 +147,7 @@
       "provenance": {
         "configuration_sha256": "44b0a81471ade66d2af5c5672c2be8cedf48d0ad0e2f586165bff3a8015e962e",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -181,7 +181,7 @@
       "provenance": {
         "configuration_sha256": "bc05c36ce82d86747a461e2e54b15df3f31c01476e2671c9e357d7551f0b4ce1",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -215,7 +215,7 @@
       "provenance": {
         "configuration_sha256": "4673b76b3ca59cc133b831503236cd44789a2a0d2ae0a9f0af8e1bfc2ee81d67",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -249,7 +249,7 @@
       "provenance": {
         "configuration_sha256": "87ecd20206d5e77084b62914b7d3a81c5738159d4296aa16c8893932dc23c974",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -283,7 +283,7 @@
       "provenance": {
         "configuration_sha256": "6a3df8a330ab0bf80927b0abb9bdcedafa177f9a9e47f2de6e414d9f2570004e",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -317,7 +317,7 @@
       "provenance": {
         "configuration_sha256": "76d68fb7aba458bae77101a691a1a565aefe0a605d469a1963021abe9faf74be",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -351,7 +351,7 @@
       "provenance": {
         "configuration_sha256": "cf958d5b33272e3877e5f4fd1083d9875df8b6b8f0e515cf4285bd6c13df7276",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -385,7 +385,7 @@
       "provenance": {
         "configuration_sha256": "fb2f481232428d1a175d2cc2b3027de297b33377a0c423e76c4aed3e589fe5c4",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -419,7 +419,7 @@
       "provenance": {
         "configuration_sha256": "db341417c655d18140213f786c930be813cf9104c81f68382f299c27d2971a09",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -453,7 +453,7 @@
       "provenance": {
         "configuration_sha256": "1b5f3392362ae5ac65f97c99a5da79e4682ea50b6f3df61bf62b77bb97efedf5",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -487,7 +487,7 @@
       "provenance": {
         "configuration_sha256": "6c2304b63b9959f7631eef86a536a7f659f5d7c2e87b41f4b71305b537e3ed95",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -521,7 +521,7 @@
       "provenance": {
         "configuration_sha256": "eafd565c73177de943e56b50e2a1802ec3cfff4fc5a4e2e8990666fdda676741",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -550,7 +550,7 @@
       "provenance": {
         "configuration_sha256": "0f11e32b77fca3b49898d7739ac8b15686ea0dbb02c91453cbbc5a157d39fda0",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -579,7 +579,7 @@
       "provenance": {
         "configuration_sha256": "20bf671ee8cb9faf4a53d3cfd89c0e480def279180f77fcc4c11834fe83f6166",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -608,7 +608,7 @@
       "provenance": {
         "configuration_sha256": "2b859ae54c2774397d722af12edbc2f14ebc24c3259ffc762d0a2606c72aa8e3",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -637,7 +637,7 @@
       "provenance": {
         "configuration_sha256": "7684b4a37e4cee0f0ceab1ff36700fa9d3c3067ec71acc73acc81aaa10fd72cc",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -663,7 +663,7 @@
       "provenance": {
         "configuration_sha256": "2d527eec9e1bc2829b8f175ec47bf9a8cfef666453beb8d8e2ac1c1e47fd9b6b",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -689,7 +689,7 @@
       "provenance": {
         "configuration_sha256": "1d16fa04e72f4e39d95c80a747d7674e48a4141465323ce7897834c8bc1537b6",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -713,7 +713,7 @@
       "provenance": {
         "configuration_sha256": "36df7b69b894a75c855c5071f79165aaf4035019f6d1cd237145db3be1ab2246",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -739,7 +739,7 @@
       "provenance": {
         "configuration_sha256": "b17159e2fdb237c00e7703fb9806f303808e14c48a4a0e2afc71bd028e0d6635",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -763,7 +763,7 @@
       "provenance": {
         "configuration_sha256": "18909d17d82d2daecb7bab95755c1f2b078b41a3fdd8820b4409a394409649cb",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -787,7 +787,7 @@
       "provenance": {
         "configuration_sha256": "c4e8578b48b17355d2bf61dd2b5cfedf38cf35d1ccceec639a901f2e04b57d9d",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -812,7 +812,7 @@
       "provenance": {
         "configuration_sha256": "7943e55a6c682e5e8a9ac52625349bc91afc89dc78f5d5b4dd31d341f2ab579a",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -836,7 +836,7 @@
       "provenance": {
         "configuration_sha256": "c6f800273f205396d2ffe080fd71fe2ac72fba2d22df5b45b97f7244191748d0",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -860,7 +860,7 @@
       "provenance": {
         "configuration_sha256": "894ea1a39c914a13aff1092accf76460058f44fac2be7d62706b059719ba82c5",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -885,7 +885,7 @@
       "provenance": {
         "configuration_sha256": "f7f53a3b8c6fbe18b98c1a1a6851f0ba13f0b9bad432f28fad132bd1a3cd4947",
         "git_dirty": false,
-        "git_revision": "b037b9bac4fb91b47282a5f1fd30d5a00f340256",
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
         "matplotlib": "3.11.2",
         "numpy": "2.5.4",
         "package_version": "0.1.0",
@@ -898,6 +898,313 @@
         "accepted": 150,
         "maximum_replay_error": 0.0,
         "rejected": 49
+      }
+    },
+    {
+      "archive": "electrothermal-buck/fields.npz",
+      "case": "electrothermal-buck",
+      "configuration": {
+        "case": "electrothermal-buck",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "2c8d8f4c0df9ad3cd11d39991090b4164432660b276627ba0a6f99a053c3a824",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "867a2a4c2322a021de3e8d463b57509b4322ea6998c545c7b1283ebdcd807f8e",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_junction_c": 71.39770140296253,
+        "max_thermal_energy_residual_j": 3.855582519918244e-12,
+        "peak_junction_c": 71.39770140296253,
+        "shutdown_samples": 0
+      }
+    },
+    {
+      "archive": "electrothermal-hot-ambient/fields.npz",
+      "case": "electrothermal-hot-ambient",
+      "configuration": {
+        "case": "electrothermal-hot-ambient",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "0b7b8ff79ce31d88f3a4ed14beac9284907f17c8ec4d30c678163dc2f68670a6",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "1bb2e28a9db6fd2ea632c52bc4205bdb7c9018f67d651fa3b81b24f30eed8188",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_junction_c": 106.30236301083183,
+        "max_thermal_energy_residual_j": 7.0921046813055e-12,
+        "peak_junction_c": 106.30236301083183,
+        "shutdown_samples": 0
+      }
+    },
+    {
+      "archive": "sampled-thermal-shutdown/fields.npz",
+      "case": "sampled-thermal-shutdown",
+      "configuration": {
+        "case": "sampled-thermal-shutdown",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "5fc47ac02ccb701e6e4b9295a3a301e41df50d939c8d9acd9d0bece5bfb047cc",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "dc0b5fbf7bd48414b8e9d969d2bfb0edb051de3bb98c8640321bbb992018d228",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_junction_c": 86.4517731246015,
+        "max_thermal_energy_residual_j": 6.711076139254146e-12,
+        "peak_junction_c": 93.43156928222103,
+        "shutdown_samples": 144
+      }
+    },
+    {
+      "archive": "biased-junction-sensor/fields.npz",
+      "case": "biased-junction-sensor",
+      "configuration": {
+        "case": "biased-junction-sensor",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "786356197f0145a3526f65bbd30b48174fb40451c6da7758a60771cb8c1d7faa",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "0220cf1ded02fd80597c323825beacc81ea39c606a107cd8546bbaaf4d7b607b",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_junction_c": 97.05239619136333,
+        "max_thermal_energy_residual_j": 8.044231947224034e-12,
+        "peak_junction_c": 108.00410967080484,
+        "shutdown_samples": 124
+      }
+    },
+    {
+      "archive": "thermal-switching-frequency/fields.npz",
+      "case": "thermal-switching-frequency",
+      "configuration": {
+        "case": "thermal-switching-frequency",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "0917adb84f4dfa4c36b82e02e5f1f44bde24146c33f219ce85717d9b3468df64",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "950143900888edc0a2d4325333bf11c8fad680d8f294c9714e732e7973fb3ec8",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "heat_at_100khz_w": 20.962075718599017,
+        "heat_at_5khz_w": 12.926338909842817
+      }
+    },
+    {
+      "archive": "electrothermal-loss-budget/fields.npz",
+      "case": "electrothermal-loss-budget",
+      "configuration": {
+        "case": "electrothermal-loss-budget",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "3f89525c238ded645ab4171cfe245d3db0fc4f68b5ee337d3f4212f9b3425c81",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "c70761cfc8967a5fd16b03dc26252fc33b0add10c2cd92bbedcef55eef80c2bb",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "maximum_power_residual_w": 1.9326762412674725e-12
+      }
+    },
+    {
+      "archive": "junction-case-step/fields.npz",
+      "case": "junction-case-step",
+      "configuration": {
+        "case": "junction-case-step",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "feee3c8f3bdcf22f65eb8a046555820cdfd1ef5d612e392718459335f24ce4ee",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "0759d62978734b32deb0edc58af14a7404b035001dd7d8ea59a3d556ab3d98cf",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "final_junction_c": 98.96976746560341,
+        "max_energy_residual_j": 1.8118839761882555e-13,
+        "steady_junction_c": 99.0
+      }
+    },
+    {
+      "archive": "cooling-time-identification/fields.npz",
+      "case": "cooling-time-identification",
+      "configuration": {
+        "case": "cooling-time-identification",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "e57ea93640a47eb436422215641f703d2b655045f35f0f24efdb61f1059d6161",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "920e4fa5113efdd391c297a94110f63dedb601258d68117de1c5551beffa01cb",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "initial_excess_c": 40.0138494391349,
+        "time_constant_s": 11.995508508733005
+      }
+    },
+    {
+      "archive": "thermal-capacity-identification/fields.npz",
+      "case": "thermal-capacity-identification",
+      "configuration": {
+        "case": "thermal-capacity-identification",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "575de96de32047d3fc4870a989f838fb802bb7971cf2f704977beb56a305741a",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "e192c01088d0eb767d99d444e206df73fb3011c6faa37b7dee84daabfc095303",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "case_capacity_j_k": 10.000000000000046,
+        "junction_capacity_j_k": 0.4999999999999992,
+        "max_fit_residual_j": 6.927791673660977e-14
+      }
+    },
+    {
+      "archive": "arrhenius-temperature-sensitivity/fields.npz",
+      "case": "arrhenius-temperature-sensitivity",
+      "configuration": {
+        "case": "arrhenius-temperature-sensitivity",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "2de29d7671d104fd872437e288e1e4a169800394694f05337e548ae7a59e3f61",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "1696d0b6eba751710148660186e75a48c11e6842e3bd7c197b7974619a6de270",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "factor_at_150c_for_03ev": 31.477912606956803
+      }
+    },
+    {
+      "archive": "thermal-feedback-stability/fields.npz",
+      "case": "thermal-feedback-stability",
+      "configuration": {
+        "case": "thermal-feedback-stability",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "8ab155c9f680035ffa8d87d2269075041facc63e4bbb702922542fb785ec4b8a",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "d6906a67e261093fd964f93a10fd64c3162541015ec9160fe737f49e506cdfbb",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "critical_power_slope_w_k": 0.27027027027027023,
+        "largest_test_pole_s_inv": 0.021223016068458167
+      }
+    },
+    {
+      "archive": "steady-thermal-budget/fields.npz",
+      "case": "steady-thermal-budget",
+      "configuration": {
+        "case": "steady-thermal-budget",
+        "resolution_scale": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "configuration_sha256": "67463ee8288a7a3cc5d73906310d3557a5701409e0eaec693163727e397ab279",
+        "git_dirty": false,
+        "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.4",
+        "package_version": "0.1.0",
+        "parameters_sha256": "2cb74b96e241eb2e845cbc9274c12738ddd1edd4294a00c03280bf5db71866bd",
+        "python": "3.13.15",
+        "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+        "scipy": "1.18.1"
+      },
+      "summary": {
+        "heat_budget_25c_default_w": 20.27027027027027
       }
     }
   ],
