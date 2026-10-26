@@ -151,6 +151,66 @@ CASES = {
         "wire_replay",
         "Reproduce actuator decisions from raw CRC-corrupt and delayed command frames",
     ],
+    "electrothermal-buck": [
+        "studies_thermal",
+        "nominal",
+        "Couple switched conduction losses and semiconductor temperature during a slow thermal transient",
+    ],
+    "electrothermal-hot-ambient": [
+        "studies_thermal",
+        "hot",
+        "Retain voltage and loss changes under a hotter thermal environment",
+    ],
+    "sampled-thermal-shutdown": [
+        "studies_thermal",
+        "shutdown",
+        "Cycle a sampled thermal latch under an overloaded synthetic power stage",
+    ],
+    "biased-junction-sensor": [
+        "studies_thermal",
+        "bias",
+        "Retain excess junction temperature when a biased sensor delays thermal shutdown",
+    ],
+    "thermal-switching-frequency": [
+        "studies_thermal",
+        "frequency",
+        "Resolve switching-frequency loss and efficiency tradeoffs at a declared hot operating point",
+    ],
+    "electrothermal-loss-budget": [
+        "studies_thermal",
+        "budget",
+        "Partition switched device conduction commutation winding and capacitor losses",
+    ],
+    "junction-case-step": [
+        "studies_thermal",
+        "step",
+        "Compare exact two-node heating against steady limits and the limitations of case-only inference",
+    ],
+    "cooling-time-identification": [
+        "studies_thermal",
+        "cooling",
+        "Identify a single-lump cooling time constant from noisy temperature observations",
+    ],
+    "thermal-capacity-identification": [
+        "studies_thermal",
+        "capacities",
+        "Recover separate junction and case capacities from node measurements and independent energy flux",
+    ],
+    "arrhenius-temperature-sensitivity": [
+        "studies_thermal",
+        "arrhenius",
+        "Compare relative temperature acceleration under explicitly illustrative activation energies",
+    ],
+    "thermal-feedback-stability": [
+        "studies_thermal",
+        "feedback",
+        "Locate the two-node local thermal-feedback stability threshold",
+    ],
+    "steady-thermal-budget": [
+        "studies_thermal",
+        "envelope",
+        "Compute declared steady junction heat budgets across ambient and cooling choices",
+    ],
 }
 
 
