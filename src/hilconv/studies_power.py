@@ -64,3 +64,7 @@ def buck(scale=1, seed=42):
     return periodic(
         "ideal-buck-ripple", "buck", 0.5, 0, circuit.Circuit(inductor_ohm=0, capacitor_esr_ohm=0), scale
     )
+
+
+def boost(scale=1, seed=42):
+    return periodic("boost-waveform", "boost", 0.4, 0, circuit.Circuit(load_ohm=12), scale)
