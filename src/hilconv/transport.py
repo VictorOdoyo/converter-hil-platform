@@ -210,3 +210,12 @@ def replay(time_ns, packet_bytes, received_ns, maximum_age_ns=200000, watchdog_n
         "accepted": latch.accepted,
         "rejected": latch.rejected,
     }
+
+
+def validate_send_time(bus, now_ns):
+    integer(now_ns, 0)
+    previous = getattr(bus, "last_send", None)
+    if (previous is not None and now_ns < previous) or (bus.time is not None and now_ns < bus.time):
+        raise ValueError("cannot inject a packet into the virtual past")
+    bus.last_send = now_ns
+    return now_ns

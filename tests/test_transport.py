@@ -75,3 +75,11 @@ def test_packet_replay_reproduces_corrupt_transport():
     assert np.array_equal(replay["duty"], r["duty"][:-1])
     assert replay["accepted"] == r["accepted_packets"]
     assert replay["rejected"] == r["rejected_packets"]
+
+
+def test_virtual_past_rejected():
+    b = m.VirtualBus(50)
+    b.poll(100)
+    with pytest.raises(ValueError):
+        m.validate_send_time(b, 99)
+    assert m.validate_send_time(b, 100) == 100
