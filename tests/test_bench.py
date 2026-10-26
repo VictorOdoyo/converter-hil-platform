@@ -35,3 +35,11 @@ def test_load_step_recovery_and_energy():
     assert abs(r["output_v"][-1] - 24) < 1
     assert max(abs(r["balance_j"])) < 1e-8
     assert 0.015013 in r["ripple_time_s"]
+
+
+def test_blackout_watchdog():
+    r = m.simulate(m.Config(duration_s=0.03, blackout_s=(0.01, 0.012)))
+    selected = (r["time_s"] >= 0.0105) & (r["time_s"] < 0.012)
+    assert np.all(r["watchdog"][selected] == 1)
+    assert np.all(r["duty"][selected] == 0)
+    assert abs(r["output_v"][-1] - 24) < 2
