@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>thermal-capacity-identification | Converter HIL Platform</title>
+<style>body{font:16px system-ui;max-width:1300px;margin:3rem auto;padding:0 1rem;color:#172033}
+img{width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{padding:.55rem;border-bottom:1px solid #dce1ea;text-align:left}
+code{overflow-wrap:anywhere}a{color:#164ac4}</style>
+<h1>thermal-capacity-identification</h1><p>Reproducible switched converters and virtual HIL. Units and field components are printed on the
+scientific axes. peak d-q quantities use exp(+i omega t); terminal currents point into the protected line.</p>
+<p><a href="fields.npz">Sealed numeric archive</a> | <a href="summary.csv">Summary CSV</a> |
+<a href="parameters.json">Physical parameters</a> | <a href="configuration.json">Run request</a> |
+<a href="provenance.json">Source and environment</a></p>
+<img src="figure.png" alt="Scientific curves and electromagnetic field maps for thermal-capacity-identification">
+<table><tr><th>case_capacity_j_k</th><td>10.000000000000046</td></tr><tr><th>junction_capacity_j_k</th><td>0.4999999999999992</td></tr><tr><th>max_fit_residual_j</th><td>6.927791673660977e-14</td></tr></table><h2>Data tables</h2><ul></ul>
+<h2>Assumptions and interpretation</h2><ul><li>Both node temperatures and net heat flux are supplied. No capacity inference from one sensor or unknown losses is claimed.</li></ul>
+<p>These are simulations, not hardware measurements. Network-model, measurement, timing and statistical
+uncertainty require distinct convergence checks. Singular or unilluminated data use explicit masks.</p>
+<p>Source revision: <code>e37760b740c42b9052fd24c1a442a5d305f0001f</code>.
+Dirty checkout: <code>False</code>.
+Configuration SHA-256: <code>575de96de32047d3fc4870a989f838fb802bb7971cf2f704977beb56a305741a</code>.</p>
+<p>Replay preserves original source and parameter provenance. SHA-256 manifests detect changed bytes;
+they are unsigned integrity records, not certificates of physical validity.</p></html>
