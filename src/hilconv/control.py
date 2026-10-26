@@ -114,3 +114,19 @@ def discrete_model(a, b, period_s):
         raise ValueError("aligned continuous state matrices required")
     transition = expm(np.block([[a, b], [np.zeros((b.shape[1], n + b.shape[1]))]]) * positive(period_s))
     return transition[:n, :n], transition[:n, n:]
+
+
+def lqr(a, b, state_cost, input_cost):
+    from scipy.linalg import solve_discrete_are
+
+    a, b, q, r = [finite(v, real=True, ndim=2) for v in (a, b, state_cost, input_cost)]
+    if (
+        not np.allclose(q, q.T)
+        or not np.allclose(r, r.T)
+        or min(np.linalg.eigvalsh(q)) < 0
+        or min(np.linalg.eigvalsh(r)) <= 0
+    ):
+        raise ValueError("PSD state and positive definite input costs required")
+    p = solve_discrete_are(a, b, q, r)
+    gain = np.linalg.solve(r + b.T @ p @ b, b.T @ p @ a)
+    return {"gain": gain, "riccati": p, "closed_loop_poles": np.linalg.eigvals(a - b @ gain)}

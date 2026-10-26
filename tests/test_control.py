@@ -47,3 +47,10 @@ def test_discrete_linearization():
     a, b = m.discrete_model(r["a"], r["b"], 50e-6)
     assert a.shape == (2, 2) and b.shape == (2, 1)
     assert max(abs(np.linalg.eigvals(a))) < 1
+
+
+def test_lqr_stability():
+    lin = m.linearize("buck", 0.5)
+    a, b = m.discrete_model(lin["a"], lin["b"], 50e-6)
+    result = m.lqr(a, b, np.diag([0.01, 1]), np.array([[20.0]]))
+    assert max(abs(result["closed_loop_poles"])) < 1
