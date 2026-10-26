@@ -68,3 +68,10 @@ def test_zero_event_trace_includes_blocked_tail():
     assert 0 < r["trace"][1, 0] < 50e-6
     assert r["trace"][1, 1] == 0 and r["trace"][-1, 1] == 0
     assert r["trace"][-1, 0] == pytest.approx(50e-6)
+
+
+def test_dcm_carrier_trace_has_positive_pulse_and_zero_tail():
+    r = m.diode_cycle([0, 24], 50e-6, "buck", 0.15)
+    assert max(r["trace"][:, 1]) > 0
+    assert r["trace"][-1, 1] == 0
+    assert np.all(np.diff(r["trace"][:, 0]) > 0)

@@ -97,12 +97,14 @@ def diode_cycle(value, period_s, topology, duty, model=None):
         raise ValueError("unidirectional buck or boost required")
     x = state(value)
     totals = {"input_j": 0.0, "output_j": 0.0, "loss_j": 0.0, "blocked_s": 0.0, "zero_crossings": 0}
+    trace = [(0.0, float(x[0]), float(x[1]))]
     for lo, hi, sa, sb in segments(topology, duty):
         r = diode_advance(x, (hi - lo) * positive(period_s), sa, sb, model)
+        trace.extend((lo * period_s + row[0], row[1], row[2]) for row in r["trace"][1:])
         x = r["state"]
         for key in totals:
             totals[key] += r[key]
-    return {"state": x, **totals}
+    return {"state": x, **totals, "trace": np.array(trace)}
 
 
 def limited_buck_cycle(value, period_s, duty, current_limit_a, model=None):
