@@ -38,3 +38,13 @@ def test_sequence_rollover():
     assert not m.newer(2**32 - 1, 0)
     assert not m.newer(3, 3)
     assert not m.newer(2**31, 0)
+
+
+def test_command_latch_fail_closed():
+    c = m.CommandLatch(100, 200)
+    packet = m.encode(m.Frame(2, 0, 50, (0.7,)))
+    assert not c.receive(packet, 40)
+    assert c.receive(packet, 50)
+    assert not c.receive(packet, 60)
+    assert c.output(249)["duty"] == 0.7
+    assert c.output(250)["duty"] == 0
