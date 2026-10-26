@@ -151,3 +151,13 @@ def stale(scale=1, seed=42):
 
 def antiwindup(scale=1, seed=42):
     return solve("saturation-antiwindup", scale, seed, {"reference_v": 70, "reference_step_v": 24}, [])
+
+
+def windup(scale=1, seed=42):
+    return solve(
+        "saturation-unprotected",
+        scale,
+        seed,
+        {"reference_v": 70, "reference_step_v": 24, "antiwindup": False},
+        [],
+    )
