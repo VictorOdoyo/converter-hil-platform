@@ -135,3 +135,7 @@ def delay(scale=1, seed=42):
 
 def loss(scale=1, seed=42):
     return solve("hil-packet-loss", scale, seed, {"drop_every": 3}, [])
+
+
+def corruption(scale=1, seed=42):
+    return solve("hil-corruption", scale, seed, {"corrupt_every": 3}, [])
