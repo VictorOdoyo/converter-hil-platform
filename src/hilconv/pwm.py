@@ -30,3 +30,16 @@ def segments(topology, duty_a, duty_b=0):
 
 def fractions(topology, duty_a, duty_b=0):
     return [(hi - lo, sa, sb) for lo, hi, sa, sb in segments(topology, duty_a, duty_b)]
+
+
+def shifted_segments(topology, duty_a, duty_b, phase_b):
+    da, db, phase = finite([duty_a, duty_b, phase_b], real=True)
+    if not 0 <= da <= 1 or not 0 <= db <= 1 or not 0 <= phase < 1:
+        raise ValueError("bounded duties and wrapped phase required")
+    edges = sorted(set([0.0, 1.0, float(da), float(phase), float((phase + db) % 1)]))
+    result = []
+    for lo, hi in pairwise(edges):
+        mid = (lo + hi) / 2
+        sa, sb = mode(topology, int(mid < da), int(((mid - phase) % 1) < db))
+        result.append((lo, hi, sa, sb))
+    return result

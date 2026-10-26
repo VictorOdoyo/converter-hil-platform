@@ -17,3 +17,9 @@ def test_common_carrier_overlap():
     assert np.allclose(parts, [(0.4, 1, 1), (0.3, 1, 0), (0.3, 0, 0)])
     assert m.fractions("buck", 0) == [(1.0, 0, 1)]
     assert m.fractions("buck", 1) == [(1.0, 1, 1)]
+
+
+def test_shifted_intervals():
+    parts = m.shifted_segments("inverter", 0.5, 0.5, 0.5)
+    assert parts == [(0.0, 0.5, 1, 1), (0.5, 1.0, -1, 1)]
+    assert sum(hi - lo for lo, hi, _, _ in parts) == 1
