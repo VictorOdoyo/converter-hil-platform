@@ -1,0 +1,12 @@
+metric,value
+accepted_packets,739
+dropped_packets,0
+final_output_v,23.712760756566695
+limited_cycles,38
+max_energy_residual_j,5.3013149425851225e-15
+maximum_recorded_current_a,18.94914741584433
+minimum_recorded_current_a,-29.18954114497774
+peak_inductor_a,29.18954114497774
+rejected_packets,0
+terminal_tracking_rms_v,0.41863946142178216
+watchdog_cycles,57
