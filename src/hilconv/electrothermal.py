@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
-from .core import positive
+import numpy as np
+
+from .core import finite, positive
 
 
 @dataclass(frozen=True)
@@ -39,3 +41,14 @@ class Thermal:
     @property
     def total_resistance(self):
         return self.junction_case_k_w + self.case_ambient_k_w
+
+
+def resistance(junction_c, device=None):
+    p = Device() if device is None else device
+    t = finite(junction_c, real=True)
+    if np.any(t <= -273.15):
+        raise ValueError("physical junction temperature required")
+    factor = 1 + p.resistance_coefficient_k * (t - 25)
+    if np.any(factor <= 0):
+        raise ValueError("temperature lies outside positive resistance model range")
+    return p.resistance_25_ohm * factor

@@ -13,3 +13,8 @@ def test_thermal_parameters():
     assert m.Thermal().total_resistance == pytest.approx(3.7)
     with pytest.raises(ValueError):
         m.Thermal(case_capacity_j_k=0)
+
+
+def test_resistance_temperature_law():
+    assert m.resistance(25) == pytest.approx(0.02)
+    assert m.resistance(125) == pytest.approx(0.028)
