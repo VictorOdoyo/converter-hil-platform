@@ -123,3 +123,7 @@ def open_load(scale=1, seed=42):
 
 def low_adc(scale=1, seed=42):
     return solve("low-resolution-adc", scale, seed, {"adc_bits": 7}, [])
+
+
+def bias(scale=1, seed=42):
+    return solve("biased-voltage-sensor", scale, seed, {"voltage_bias_v": 2}, [])
