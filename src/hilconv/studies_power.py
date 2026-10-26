@@ -269,3 +269,33 @@ def inverter(scale=1, seed=42):
             "Open-loop SPWM with exact switched intervals. Harmonic fit uses carrier-boundary samples and excludes switching-band distortion."
         ],
     )
+
+
+def loss_estimate(scale=1, seed=42):
+    current = np.linspace(0, 20, 101 * scale)
+    loss20 = pwm.switching_loss(current, 48, 20000)
+    loss80 = pwm.switching_loss(current, 48, 80000)
+    return make(
+        "switching-loss-estimate",
+        {
+            "bus_v": 48,
+            "reference_current_a": 10,
+            "turnon_j": 20e-6,
+            "turnoff_j": 15e-6,
+            "output_capacitance_f": 200e-12,
+        },
+        {"loss_20khz_at_20a_w": float(loss20[-1])},
+        {"current_a": current, "loss20_w": loss20, "loss80_w": loss80},
+        [
+            curve(
+                "Illustrative per-device switching power",
+                "current_a",
+                [("loss20_w", "20 kHz"), ("loss80_w", "80 kHz")],
+                "Commutated current (A)",
+                "Estimated power (W)",
+            )
+        ],
+        assumptions=[
+            "Illustrative energy scaling, not a device datasheet or thermal model. This estimate is not subtracted from the ideal-switch circuit energy a second time."
+        ],
+    )

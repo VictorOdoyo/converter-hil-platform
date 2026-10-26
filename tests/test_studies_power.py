@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from hilconv import studies_power as m
@@ -50,3 +51,8 @@ def test_inverter():
     assert 22 < r["summary"]["fundamental_peak_v"] < 25
     assert r["summary"]["low_order_thd"] < 0.05
     assert abs(r["summary"]["energy_residual_j"]) < 1e-8
+
+
+def test_loss_estimate():
+    r = m.loss_estimate()
+    assert np.allclose(r["arrays"]["loss80_w"], 4 * r["arrays"]["loss20_w"])
