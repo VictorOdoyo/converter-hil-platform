@@ -1,0 +1,12 @@
+{
+  "configuration_sha256": "0b7b8ff79ce31d88f3a4ed14beac9284907f17c8ec4d30c678163dc2f68670a6",
+  "git_dirty": false,
+  "git_revision": "e37760b740c42b9052fd24c1a442a5d305f0001f",
+  "matplotlib": "3.11.2",
+  "numpy": "2.5.4",
+  "package_version": "0.1.0",
+  "parameters_sha256": "1bb2e28a9db6fd2ea632c52bc4205bdb7c9018f67d651fa3b81b24f30eed8188",
+  "python": "3.13.15",
+  "quantity_convention": "SI units; positive inductor current from source to load; signed input and output power; capacitor voltage excludes ESR; integer nanosecond HIL ticks",
+  "scipy": "1.18.1"
+}
