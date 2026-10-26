@@ -174,3 +174,37 @@ def averaging(scale=1, seed=42):
             "Boundary current includes ripple phase; mixed-unit norm is only a convergence diagnostic."
         ],
     )
+
+
+def esr(scale=1, seed=42):
+    from scipy.linalg import expm
+
+    values = np.linspace(0, 1, 101 * scale)
+    correct = []
+    naive = []
+    difference = []
+    x = np.array([10.0, 70.0])
+    duration = 0.001
+    for resistance in values:
+        p = circuit.Circuit(capacitor_esr_ohm=float(resistance))
+        a, _ = pwm.averaged("boost", 0.4, model=p)
+        true = (expm(a * duration) @ np.r_[x, 1.0])[:2]
+        wrong = (expm(circuit.generator(1, 0.6, p) * duration) @ np.r_[x, 1.0])[:2]
+        correct.append(true[0])
+        naive.append(wrong[0])
+        difference.append(np.linalg.norm(true - wrong))
+    return make(
+        "esr-mode-averaging",
+        {"duty": 0.4, "duration_s": duration},
+        {"max_state_difference": float(max(difference))},
+        {"esr_ohm": values, "correct_a": np.array(correct), "naive_a": np.array(naive)},
+        [
+            curve(
+                "Average vector fields after switch algebra",
+                "esr_ohm",
+                [("correct_a", "Mode-fraction average"), ("naive_a", "Naive fractional output coefficient")],
+                "Capacitor ESR (ohm)",
+                "Inductor current (A)",
+            )
+        ],
+    )

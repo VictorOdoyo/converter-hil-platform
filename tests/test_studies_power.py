@@ -1,3 +1,5 @@
+import pytest
+
 from hilconv import studies_power as m
 
 
@@ -35,3 +37,9 @@ def test_dcm():
 def test_averaging():
     r = m.averaging()
     assert r["summary"]["fine_error"] < r["summary"]["coarse_error"] / 4
+
+
+def test_esr():
+    r = m.esr()
+    assert r["summary"]["max_state_difference"] > 0.1
+    assert r["arrays"]["correct_a"][0] == pytest.approx(r["arrays"]["naive_a"][0])
