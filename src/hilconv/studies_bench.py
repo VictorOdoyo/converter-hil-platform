@@ -99,3 +99,7 @@ def solve(name, scale, seed, changes=None, events=(), model_changes=None):
 
 def nominal(scale=1, seed=42):
     return solve("buck-regulation", scale, seed, {}, [])
+
+
+def averaged(scale=1, seed=42):
+    return solve("buck-averaged", scale, seed, {"averaged": True}, [])
