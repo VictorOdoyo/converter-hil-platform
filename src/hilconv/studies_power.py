@@ -83,3 +83,60 @@ def regeneration(scale=1, seed=42):
 
 def bridge(scale=1, seed=42):
     return periodic("full-bridge-waveform", "inverter", 0.75, 0.25, circuit.Circuit(), scale)
+
+
+def dcm(scale=1, seed=42):
+    from .hybrid import diode_cycle
+
+    p = circuit.Circuit(load_ohm=100)
+    period = 50e-6
+    x = np.array([0.0, 24.0])
+    states = [x.copy()]
+    blocked = []
+    energy = []
+    for _ in range(120):
+        r = diode_cycle(x, period, "buck", 0.15, p)
+        x = r["state"]
+        states.append(x.copy())
+        blocked.append(r["blocked_s"] / period)
+        energy.append(r["input_j"] - r["output_j"] - r["loss_j"])
+    states = np.array(states)
+    t = np.arange(len(states)) * period * 1000
+    fraction = np.r_[blocked, blocked[-1]]
+    residual = circuit.energy(x, p) - circuit.energy(states[0], p) - sum(energy)
+    return make(
+        "diode-discontinuous",
+        {"circuit": asdict(p), "duty": 0.15},
+        {
+            "max_blocked_fraction": float(max(blocked)),
+            "minimum_boundary_current_a": float(min(states[:, 0])),
+            "energy_residual_j": float(residual),
+        },
+        {"time_ms": t, "current_a": states[:, 0], "capacitor_v": states[:, 1], "blocked_fraction": fraction},
+        [
+            curve(
+                "Diode-constrained current",
+                "time_ms",
+                [("current_a", "Boundary current")],
+                "Time (ms)",
+                "Current (A)",
+            ),
+            curve(
+                "Output capacitor discharge",
+                "time_ms",
+                [("capacitor_v", "Capacitor")],
+                "Time (ms)",
+                "Voltage (V)",
+            ),
+            curve(
+                "Physical blocked time",
+                "time_ms",
+                [("blocked_fraction", "Fraction of carrier")],
+                "Time (ms)",
+                "Blocked fraction",
+            ),
+        ],
+        assumptions=[
+            "Synchronous models permit negative current; this asynchronous buck explicitly opens the diode at a zero crossing."
+        ],
+    )

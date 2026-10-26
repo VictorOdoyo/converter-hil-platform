@@ -23,3 +23,10 @@ def test_bridge():
     r = m.bridge()
     assert r["summary"]["periodic_state_error"] < 1e-8
     assert r["summary"]["periodic_state_error"] < 1e-8
+
+
+def test_dcm():
+    r = m.dcm()
+    assert r["summary"]["minimum_boundary_current_a"] >= 0
+    assert r["summary"]["max_blocked_fraction"] > 0.3
+    assert abs(r["summary"]["energy_residual_j"]) < 1e-9
