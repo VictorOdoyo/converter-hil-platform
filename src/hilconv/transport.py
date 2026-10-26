@@ -18,3 +18,15 @@ class Frame:
         finite(self.values, real=True, ndim=1)
         if not 1 <= len(self.values) <= 16:
             raise ValueError("one to sixteen declared SI values required")
+
+
+def encode(frame):
+    import struct
+    import zlib
+
+    if not isinstance(frame, Frame):
+        raise ValueError("validated HIL frame required")
+    body = struct.pack(
+        "<4sBBIQH", b"HIL1", 1, frame.kind, frame.sequence, frame.tick_ns, len(frame.values)
+    ) + struct.pack("<" + "d" * len(frame.values), *frame.values)
+    return body + struct.pack("<I", zlib.crc32(body))
