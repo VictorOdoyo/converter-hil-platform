@@ -66,3 +66,8 @@ def test_wire_packet_bytes_preserved():
     assert r["received_packet_bytes"].shape == (len(r["packet_log"]), 32)
     frame = decode(r["received_packet_bytes"][0].tobytes())
     assert frame.tick_ns == 0 and frame.sequence == 0
+
+
+def test_zero_nominal_input_rejected():
+    with pytest.raises(ValueError):
+        m.simulate(model=m.circuit.Circuit(input_v=0))

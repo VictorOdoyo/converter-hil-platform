@@ -67,6 +67,7 @@ def simulate(config=None, model=None, faults=()):
 
     c = Config() if config is None else config
     p = circuit.Circuit() if model is None else model
+    positive(p.input_v, "nominal controller input voltage")
     schedule = Schedule(p, faults)
     period = 1 / c.switching_hz
     t = timeline(c.duration_s, period)
