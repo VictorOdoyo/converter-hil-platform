@@ -139,3 +139,7 @@ def loss(scale=1, seed=42):
 
 def corruption(scale=1, seed=42):
     return solve("hil-corruption", scale, seed, {"corrupt_every": 3}, [])
+
+
+def blackout(scale=1, seed=42):
+    return solve("hil-blackout", scale, seed, {"blackout_s": [0.015, 0.018]}, [])
