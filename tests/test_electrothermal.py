@@ -28,3 +28,9 @@ def test_rms_conduction():
 def test_switching_energy_reference():
     assert m.switching_energy(10, 10, 48, 25) == pytest.approx(35e-6)
     assert m.switching_energy(0, 0, 48, 25) == 0
+
+
+def test_two_node_thermal_energy():
+    r = m.thermal_step([25, 25], 20, 25, 1)
+    assert r["temperatures_c"][0] > r["temperatures_c"][1] > 25
+    assert abs(r["energy_residual_j"]) < 1e-10

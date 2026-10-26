@@ -73,3 +73,33 @@ def switching_energy(turnon_current_a, turnoff_current_a, bus_v, junction_c, dev
     on = p.turnon_reference_j * abs(float(finite(turnon_current_a, real=True))) / p.reference_current_a
     off = p.turnoff_reference_j * abs(float(finite(turnoff_current_a, real=True))) / p.reference_current_a
     return (on + off) * voltage / p.reference_voltage_v * factor
+
+
+def thermal_step(temperatures_c, power_w, ambient_c, duration_s, model=None):
+    from scipy.linalg import expm
+
+    p = Thermal() if model is None else model
+    t = finite(temperatures_c, real=True)
+    ambient = float(finite(ambient_c, real=True))
+    power = positive(power_w, allow_zero=True)
+    dt = positive(duration_s)
+    if t.shape != (2,) or min(*t, ambient) <= -273.15:
+        raise ValueError("junction case and ambient temperatures required")
+    cj, cc, rj, ra = p.junction_capacity_j_k, p.case_capacity_j_k, p.junction_case_k_w, p.case_ambient_k_w
+    a = np.array(
+        [
+            [-1 / (rj * cj), 1 / (rj * cj), power / cj, 0],
+            [1 / (rj * cc), -(1 / rj + 1 / ra) / cc, ambient / (ra * cc), 0],
+            [0, 0, 0, 0],
+            [0, 1 / ra, -ambient / ra, 0],
+        ]
+    )
+    result = expm(a * dt) @ np.r_[t, 1.0, 0.0]
+    stored = float(np.array([cj, cc]) @ (result[:2] - t))
+    return {
+        "temperatures_c": result[:2],
+        "input_j": power * dt,
+        "ambient_j": float(result[3]),
+        "stored_change_j": stored,
+        "energy_residual_j": stored - power * dt + float(result[3]),
+    }
