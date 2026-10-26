@@ -1,0 +1,12 @@
+{
+  "boost_duty": 0.4,
+  "circuit": {
+    "capacitance_f": 0.00047,
+    "capacitor_esr_ohm": 0,
+    "inductance_h": 0.00022,
+    "inductor_ohm": 0,
+    "input_v": 48,
+    "load_ohm": 6,
+    "load_source_v": 0
+  }
+}
