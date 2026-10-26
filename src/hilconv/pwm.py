@@ -1,6 +1,6 @@
 from itertools import pairwise
 
-from .core import finite
+from .core import finite, positive
 
 
 def mode(topology, gate_a, gate_b=0):
@@ -43,3 +43,17 @@ def shifted_segments(topology, duty_a, duty_b, phase_b):
         sa, sb = mode(topology, int(mid < da), int(((mid - phase) % 1) < db))
         result.append((lo, hi, sa, sb))
     return result
+
+
+def cycle(value, period_s, topology, duty_a, duty_b=0, model=None):
+    from .circuit import advance, state
+
+    period = positive(period_s)
+    x = state(value)
+    totals = {"input_j": 0.0, "output_j": 0.0, "loss_j": 0.0}
+    for lo, hi, sa, sb in segments(topology, duty_a, duty_b):
+        r = advance(x, (hi - lo) * period, sa, sb, model)
+        x = r["state"]
+        for key in totals:
+            totals[key] += r[key]
+    return {"state": x, **totals}
