@@ -99,3 +99,10 @@ def test_frame_freezes_payload():
     assert m.decode(m.encode(frame)).values == (0.5,)
     with pytest.raises(ValueError):
         m.Frame(True, 0, 0, (1,))
+
+
+def test_latch_rejects_backward_receive():
+    c = m.CommandLatch()
+    c.output(100)
+    with pytest.raises(ValueError):
+        c.receive(m.encode(m.Frame(2, 0, 50, (0.5,))), 99)

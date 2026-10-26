@@ -79,6 +79,9 @@ class CommandLatch:
 
     def receive(self, packet, now_ns):
         integer(now_ns, 0)
+        if self.time is not None and now_ns < self.time:
+            raise ValueError("monotone actuator receive clock required")
+        self.time = now_ns
         try:
             f = decode(packet)
             if f.kind != 2 or len(f.values) != 1 or not 0 <= f.values[0] <= 1:
