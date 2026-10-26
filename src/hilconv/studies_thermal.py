@@ -162,3 +162,59 @@ def budget(scale=1, seed=42):
             )
         ],
     )
+
+
+def step(scale=1, seed=42):
+    from .electrothermal import junction_from_case, steady_temperatures, thermal_step
+
+    t = np.linspace(0, 240, 481 * scale)
+    state = np.array([25.0, 25.0])
+    states = [state.copy()]
+    residual = []
+    for dt in np.diff(t):
+        r = thermal_step(state, 20, 25, dt)
+        state = r["temperatures_c"]
+        states.append(state.copy())
+        residual.append(r["energy_residual_j"])
+    states = np.array(states)
+    equilibrium = steady_temperatures(20)
+    inferred = junction_from_case(states[:, 1], 20)
+    return make(
+        "junction-case-step",
+        {"power_w": 20, "ambient_c": 25},
+        {
+            "final_junction_c": float(state[0]),
+            "steady_junction_c": float(equilibrium[0]),
+            "max_energy_residual_j": float(max(abs(np.array(residual)))),
+        },
+        {
+            "time_s": t,
+            "junction_c": states[:, 0],
+            "case_c": states[:, 1],
+            "steady_junction_c": np.full(len(t), equilibrium[0]),
+            "case_inferred_c": inferred,
+        },
+        [
+            curve(
+                "Two-node heating and steady prediction",
+                "time_s",
+                [
+                    ("junction_c", "Actual junction"),
+                    ("case_c", "Actual case"),
+                    ("steady_junction_c", "Steady junction"),
+                ],
+                "Time (s)",
+                "Temperature (C)",
+            ),
+            curve(
+                "Steady-flow case inference during a transient",
+                "time_s",
+                [("junction_c", "Actual junction"), ("case_inferred_c", "Tc + P Rjc")],
+                "Time (s)",
+                "Temperature (C)",
+            ),
+        ],
+        assumptions=[
+            "Case-to-junction steady inference is deliberately shown to be biased during initial heating."
+        ],
+    )

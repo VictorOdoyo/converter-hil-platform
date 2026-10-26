@@ -32,3 +32,8 @@ def test_frequency():
 
 def test_budget():
     assert m.budget()["summary"]["maximum_power_residual_w"] < 1e-7
+
+
+def test_step():
+    s = m.step()["summary"]
+    assert abs(s["final_junction_c"] - s["steady_junction_c"]) < 0.5 and s["max_energy_residual_j"] < 1e-9
